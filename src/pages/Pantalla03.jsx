@@ -7,7 +7,7 @@ import Boton from "../components/Boton";
 import {
   rondasJuego2,
   calcularPuntajeYValidacion,
-} from "../services/calculoPantalla03";
+} from "../services/calculoPantalla03.js";
 
 import { guardarPuntajeJuego2 } from "../services/estadoJuego";
 
