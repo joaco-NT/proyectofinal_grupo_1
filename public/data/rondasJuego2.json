@@ -1,0 +1,8 @@
+
+[
+  { "id": 1, "opciones": ["🐶 Perro", "🐱 Gato", "🦁 León"], "correcta": "🦁 León" },
+  { "id": 2, "opciones": ["🐮 Vaca", "🐑 Oveja", "🐊 Cocodrilo"], "correcta": "🐊 Cocodrilo" },
+  { "id": 3, "opciones": ["🐔 Gallina", "🐷 Chancho", "🐘 Elefante"], "correcta": "🐘 Elefante" },
+  { "id": 4, "opciones": ["🐎 Caballo", "🐮 Vaca", "🦈 Tiburón"], "correcta": "🦈 Tiburón" },
+  { "id": 5, "opciones": ["🐑 Oveja", "🐶 Perro", "🐧 Pingüino"], "correcta": "🐧 Pingüino" }
+]
