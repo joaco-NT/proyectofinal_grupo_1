@@ -1,13 +1,13 @@
 import { Outlet, useLocation } from "react-router-dom";
 import Container from "@mui/material/Container";
-import "./css/transiciones.css"; // Tu archivo CSS de arriba
+import "./css/transiciones.css";
+import './css/EstiloGlobal.css';
 
 export default function App() {
-  const location = useLocation(); // Detecta la ruta actual
+  const location = useLocation();
 
   return (
     <Container>
-      {/* La key hace que React "reinicie" el componente y dispare la animación en cada cambio de ruta */}
       <div key={location.pathname} className="transicion-pagina">
         <Outlet />
       </div>

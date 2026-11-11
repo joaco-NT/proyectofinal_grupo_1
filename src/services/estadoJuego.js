@@ -1,48 +1,33 @@
-// ==========================================
-// ESTADO GLOBAL DE LA PARTIDA
-// ==========================================
 
-let memoriaPartida = {
-  nombreJugador: "", // Guarda el nombre del usuario
-  puntajeJuego1: 0,  // Guarda el puntaje de la Pantalla 02 (Juego 1)
-  puntajeJuego2: 0,  // Guarda el puntaje de la Pantalla 03 (Juego 2)
-  respuesta: 0,      // Propiedad para almacenar respuestas adicionales
+let partidaActual = {
+  nombreJugador: "",
+  puntajeJuego1: 0,
+  puntajeJuego2: 0,
 };
 
-// Función para guardar el nombre del niño
-export const guardarNombreJugador = (nombre) => {
-  memoriaPartida.nombreJugador = nombre;
+// Responsabilidad única: Registrar y almacenar el nombre del jugador en el estado global
+export const procesarYGuardarNombre = (nombreProcesado) => {
+  partidaActual.nombreJugador = nombreProcesado;
 };
 
-// Función para guardar el puntaje del Juego 1
-export const guardarPuntajeJuego1 = (puntaje) => {
-  memoriaPartida.puntajeJuego1 = puntaje;
+// Responsabilidad única: Guardar y limitar el puntaje máximo del Juego 1 en el estado global
+export const procesarYGuardarPuntajeJuego1 = (puntaje) => {
+  partidaActual.puntajeJuego1 = Math.min(puntaje, 50);
 };
 
-// Función para guardar el puntaje del Juego 2
-export const guardarPuntajeJuego2 = (puntaje) => {
-  memoriaPartida.puntajeJuego2 = puntaje;
+// Responsabilidad única: Guardar y limitar el puntaje máximo del Juego 2 en el estado global
+export const procesarYGuardarPuntajeJuego2 = (puntaje) => {
+  partidaActual.puntajeJuego2 = Math.min(puntaje, 50);
 };
 
-// Función para guardar una respuesta
-export const guardarRespuesta = (valorRespuesta) => {
-  memoriaPartida.respuesta = valorRespuesta;
-};
-
-// Función para reiniciar los datos si juegan de nuevo (vuelven al Login)
-export const reiniciarPartida = () => {
-  memoriaPartida.nombreJugador = "";
-  memoriaPartida.puntajeJuego1 = 0;
-  memoriaPartida.puntajeJuego2 = 0;
-  memoriaPartida.respuesta = 0;
-};
-
-// Función para obtener todo el resumen (incluyendo la suma total de los dos puntajes)
+// Responsabilidad única: Retornar una copia segura del resumen actual de la partida
 export const obtenerResumenPartida = () => {
-  const sumaTotal = memoriaPartida.puntajeJuego1 + memoriaPartida.puntajeJuego2;
+  return { ...partidaActual };
+};
 
-  return {
-    ...memoriaPartida,
-    puntajeTotal: sumaTotal
-  };
+// Responsabilidad única: Restablecer todos los valores del estado global a sus valores iniciales
+export const reiniciarPartida = () => {
+  partidaActual.nombreJugador = "";
+  partidaActual.puntajeJuego1 = 0;
+  partidaActual.puntajeJuego2 = 0;
 };

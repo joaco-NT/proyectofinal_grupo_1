@@ -1,121 +1,146 @@
-import React, { useEffect } from "react";
+
+// 1. Librerías por defecto
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+// 2. Componentes visuales propios
 import Boton from "../components/Boton";
-import {
-  obtenerResumenPartida,
-  reiniciarPartida,
-} from "../services/estadoJuego";
+
+// 3. Motorización propia (servicios, hooks y estilos)
+import { obtenerMensajeFelicitacion, validarPuntajesFinales } from "../services/calculoPantalla04";
+import { useFondoPantalla } from "../hooks/useFondoPantalla";
+import { useProgresoPartida } from "../hooks/useProgresoPartida";
 import "../css/EstiloPantalla04.css";
 
 const Pantalla04 = () => {
+  useFondoPantalla("body-pantalla04");
+
   const navigate = useNavigate();
+  const { obtenerResumen, reiniciarProgreso } = useProgresoPartida();
+  const [reiniciando, setReiniciando] = useState(false);
 
-  // ==========================================
-  // A. MEMORIA
-  // ==========================================
-  const resumen = obtenerResumenPartida();
+  const resumen = obtenerResumen();
 
-  const nombre = resumen.nombreJugador;
-  const puntajeJuego1 = resumen.puntajeJuego1;
-  const puntajeJuego2 = resumen.puntajeJuego2;
-  
-  // Puntaje total calculado de ambos juegos (hasta 100 puntos)
-  const puntajeTotal = resumen.puntajeTotal !== undefined 
-    ? resumen.puntajeTotal 
-    : (puntajeJuego1 + puntajeJuego2);
+  const { puntajeJuego1, puntajeJuego2, puntajeTotal } = validarPuntajesFinales(
+    resumen.puntajeJuego1,
+    resumen.puntajeJuego2
+  );
 
-  // ==========================================
-  // B. ACCIONES
-  // ==========================================
+  const mensajeFelicitacion = obtenerMensajeFelicitacion(puntajeTotal, resumen.nombreJugador);
+
   const manejarJugarDeNuevo = () => {
-    reiniciarPartida();
-    navigate("/"); // Vuelve al Login
+    setReiniciando(true);
+    reiniciarProgreso();
+    
+    setTimeout(() => {
+      navigate("/");
+    }, 800);
   };
 
-  // ==========================================
-  // C. EFECTOS
-  // ==========================================
-  useEffect(() => {
-    document.body.classList.add("body-pantalla04");
-    return () => {
-      document.body.classList.remove("body-pantalla04");
-    };
-  }, []);
+  // --- PREPARACIÓN DE DATOS PARA LA VISTA ---
+  const claseBaseEstilo = "pantalla04";
 
-  // ==========================================
-  // D. MENSAJE PERSONALIZADO
-  // ==========================================
-  const obtenerMensajeFelicitacion = () => {
-    if (puntajeTotal === 100) {
-      return `¡Increíble ${nombre}! ¡Conseguiste el puntaje perfecto!`;
-    }
-    if (puntajeTotal >= 80) {
-      return `¡Excelente trabajo, ${nombre}! Sos un gran explorador.`;
-    }
-    if (puntajeTotal >= 60) {
-      return `¡Muy bien, ${nombre}! Aprendiste un montón.`;
-    }
-    if (puntajeTotal >= 40) {
-      return `¡Buen trabajo, ${nombre}! Seguí practicando.`;
-    }
-    return `¡Gracias por jugar, ${nombre}! ¡La próxima aventura te espera!`;
+  const datosResultados = {
+    tituloPrincipal: "🏆 ¡Aventura completada!",
+    subtituloNombre: `¡Felicitaciones, ${resumen.nombreJugador}!`,
+    etiquetaSeccion: "Tus resultados",
+    etiquetaJuego1: "🐮 Juego 1",
+    etiquetaJuego2: "🦁 Juego 2",
+    etiquetaTotal: "⭐ Total",
+    etiquetaPorcentaje: "📈 Porcentaje de aciertos",
+    puntajeJuego1,
+    puntajeJuego2,
+    puntajeTotal,
+    porcentajeTotalTexto: `${puntajeTotal}%`,
+    mensajeFelicitacion,
+    textoBoton: "¡Jugar de nuevo! 🚀",
+    alHacerClickBoton: manejarJugarDeNuevo
   };
 
-  // ==========================================
-  // E. ESCENARIO
-  // ==========================================
+  const datosReiniciando = {
+    titulo: "🔄 Reiniciando...",
+    mensaje: "Volviendo al inicio de la granja..."
+  };
+
   return (
-    <main className="pantalla04">
-      {/* Caja 1: Título y Nombre */}
-      <header className="pantalla04__caja-general">
-        <h1 className="pantalla04__titulo">
-          🏆 ¡Aventura completada!
-        </h1>
+    <EstructuraPantalla04
+      claseBaseEstilo={claseBaseEstilo}
+      estaReiniciando={reiniciando}
+      datosResultados={datosResultados}
+      datosReiniciando={datosReiniciando}
+    />
+  );
+};
 
-        <p className="pantalla04__nombre">
-          ¡Felicitaciones, {nombre}!
-        </p>
+const EstructuraPantalla04 = ({
+  claseBaseEstilo,
+  estaReiniciando,
+  datosResultados,
+  datosReiniciando
+}) => {
+
+  const renderizarEncabezado = (textoTitulo) => (
+    <header className={`${claseBaseEstilo}__caja-general`}>
+      <h1 className={`${claseBaseEstilo}__titulo`}>{textoTitulo}</h1>
+    </header>
+  );
+  
+
+  const renderizarAreaResultados = () => (
+    <main className={claseBaseEstilo}>
+      {renderizarEncabezado(datosResultados.tituloPrincipal)}
+
+      <header className={`${claseBaseEstilo}__caja-general`}>
+        <p className={`${claseBaseEstilo}__nombre`}>{datosResultados.subtituloNombre}</p>
       </header>
 
-      {/* Caja 2: Resultados por separado y Total */}
-      <section className="pantalla04__caja-general">
-        <h2 className="pantalla04__subtitulo">
-          Tus resultados
-        </h2>
-
-        <div className="pantalla04__resultado">
-          <span>🐮 Juego 1: ¡Hora de Comer!</span>
-          <strong>{puntajeJuego1} / 50 puntos</strong>
+      <section className={`${claseBaseEstilo}__caja-general`}>
+        <h2 className={`${claseBaseEstilo}__subtitulo`}>{datosResultados.etiquetaSeccion}</h2>
+        
+        <div className={`${claseBaseEstilo}__resultado`}>
+          <span>{datosResultados.etiquetaJuego1}</span>
+          <strong>{datosResultados.puntajeJuego1} / 50</strong>
+        </div>
+        
+        <div className={`${claseBaseEstilo}__resultado`}>
+          <span>{datosResultados.etiquetaJuego2}</span>
+          <strong>{datosResultados.puntajeJuego2} / 50</strong>
+        </div>
+        
+        <div className={`${claseBaseEstilo}__resultado-total`}>
+          <span>{datosResultados.etiquetaTotal}</span>
+          <strong>{datosResultados.puntajeTotal} / 100</strong>
         </div>
 
-        <div className="pantalla04__resultado">
-          <span>🦁 Juego 2: El Intruso de la Granja</span>
-          <strong>{puntajeJuego2} / 50 puntos</strong>
+        <div className={`${claseBaseEstilo}__resultado`}>
+          <span>{datosResultados.etiquetaPorcentaje}</span>
+          <strong>{datosResultados.porcentajeTotalTexto}</strong>
         </div>
-
-        <div className="pantalla04__resultado-total">
-          <span>⭐ Puntaje total</span>
-          <strong>{puntajeTotal} / 100 puntos</strong>
-        </div>
+        
+        <p className={`${claseBaseEstilo}__felicitacion`}>{datosResultados.mensajeFelicitacion}</p>
       </section>
 
-      {/* Caja 3: Mensaje personalizado */}
-      <section className="pantalla04__caja-general">
-        <p className="pantalla04__felicitacion">
-          {obtenerMensajeFelicitacion()}
-        </p>
-      </section>
-
-      {/* Caja 4: Botón Jugar de nuevo */}
-      <section className="pantalla04__caja-general">
+      <section className={`${claseBaseEstilo}__caja-general`}>
         <Boton
-          texto="¡Jugar de nuevo! 🚀"
-          alHacerClick={manejarJugarDeNuevo}
-          claseCSS="pantalla04__boton-reiniciar"
+          texto={datosResultados.textoBoton}
+          alHacerClick={datosResultados.alHacerClickBoton}
+          claseCSS={`${claseBaseEstilo}__boton-reiniciar`}
         />
       </section>
     </main>
   );
+
+  const renderizarAreaReiniciando = () => (
+    <main className={claseBaseEstilo}>
+      {renderizarEncabezado(datosReiniciando.titulo)}
+
+      <section className={`${claseBaseEstilo}__caja-general`}>
+        <p className={`${claseBaseEstilo}__pregunta`}>{datosReiniciando.mensaje}</p>
+      </section>
+    </main>
+  );
+
+  return estaReiniciando ? renderizarAreaReiniciando() : renderizarAreaResultados();
 };
 
 export default Pantalla04;

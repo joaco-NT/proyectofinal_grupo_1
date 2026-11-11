@@ -1,5 +1,5 @@
 
-# 📋 Reporte de Progreso General - Proyecto 04
+# 📋 Reporte de Progreso General - ProyectoFinal
 
 ## 👤 Reporte de Progreso - Miembro 1
 
@@ -9,90 +9,111 @@
   - **Ejercicio 01:** Pantalla de Login (Validación y almacenamiento de nombre de usuario)
   - **Ejercicio 02:** Juego 1: ¡Hora de Comer! (Manejo de rondas, opciones aleatorias, puntaje y persistencia)
 
----
 
-## Estructura de Vistas (pages/)
+## 📁 Componentes (components/)
+
+##  📄  `Boton.jsx`:
+Componente de interfaz reutilizable diseñado para encapsular la estructura y el comportamiento de los botones de acción bajo una misma base homogénea.
+
+##  📄  `PlantillaJuegoBase.jsx`:
+se implento un componente estructural para unificar la interfaz de todos los minijuegos de la plataforma y evitar duplicar código de diseño entre pantallas.
+
+Lo utilizan directamente las pantallas de juego (como Pantalla02.jsx y Pantalla03.jsx) para renderizar de forma uniforme tanto el estado activo de las preguntas como la pantalla final de puntajes.
+
+## 📁 Estilos (css/)
+
+##  📄  `EstiloGlobal.css`:
+ Aplica de forma global para unificar los estilos transversales en todas las pantallas y componentes.
+
+ Al importarse en la raíz, sus reglas se aplican de manera global a todo el proyecto, afectando a todas las pantallas (Pantalla01, Pantalla02, etc.) y componentes sin necesidad de importarlos individualmente en cada archivo.
+
+##  📄  `trasiciones.css`:
+Centraliza las reglas de animación, efectos de desvanecimiento y microinteracciones fluidas para los elementos interactivos.
+
+Aporta dinamismo visual y suavidad en la respuesta de los botones, estados de carga y cambios de estado.
+
+Se conectan directamente al archivo raíz o de entrada principal de la aplicación React (app.jsx).
+
+Al importarse en la raíz, sus reglas se aplican de manera global a todo el proyecto, afectando a todas las pantallas (Pantalla01, Pantalla02, etc.) y componentes sin necesidad de importarlos individualmente en cada archivo.
+
+## 📁 Hook (hooks/)
+
+##  📄  `useFondoPantalla.js`:
+Añade dinámicamente la clase CSS del cuerpo de la página al montarse y la limpia al desmontarse.
+
+Se conecta directamente al objeto global document.body de cada pantalla para cambiar el fondo exclusivo.
+
+Lo utilizan las pantallas de forma individual (Pantalla01, Pantalla02, etc.) para asignar el color de fondo correspondiente.
+
+##  📄  `useJuego.js`:
+Orquesta todo el ciclo de vida, las rondas asíncronas, el puntaje y las respuestas de los minijuegos.
+
+Se conecta con los servicios de cálculo (calculoPantalla02.js y calculoPantalla03.js) y con react-router-dom para la navegación.
+
+Lo utilizan directamente las pantallas de juego (Pantalla02.jsx y Pantalla03.jsx) para encapsular toda su lógica interactiva.
+
+##  📄  `useProgresoPartida.js`:
+Proporciona una interfaz limpia y desacoplada para leer y modificar el estado global de la partida.
+
+Se conecta directamente con el módulo de almacenamiento global en memoria (estadoJuego.js).
+
+Lo utilizan las pantallas principales (Pantalla01, Pantalla02, Pantalla03, Pantalla04) para registrar nombres, guardar puntajes y reiniciar el juego.
+
+## 📁 Servicios (services/)
+
+### ⚙️ `estadoJuego.js`:
+
+El módulo que guarda en memoria la sesión actual con el nombre y los puntajes de los minijuegos.
+Permite registrar y limitar los puntos mediante funciones seguras sin romper la reactividad.
+Borra todo y deja los valores en cero cuando tocamos el botón de reiniciar la partida.
+
+### ⚙️ `utilidades.js`:
+
+Módulo de funciones auxiliares que centraliza la lógica compartida de procesamiento de datos, aleatoriedad y validación para los minijuegos.
+
+Implementa el algoritmo de mezcla Fisher-Yates para el barajado estocástico de opciones y un servicio asíncrono genérico basado en fetch para la ingesta de recursos JSON.
+
+Se importa directamente en calculoPantalla02.js y calculoPantalla03.js para reutilizar las funciones de carga de rondas y validación de respuestas.
+
+Sirve como la base principal que le da soporte a los minijuegos de toda la aplicación sin tener que duplicar lógica.
 
 
-## 📄 `Pantalla01.jsx`:
-Componente de la pantalla de login. Contiene la memoria del input de texto y errores, gestiona el inicio de sesión capturando el nombre del usuario y delegando su validación a `calculoPantalla01.js`. Importa `guardarNombreJugador` desde `estadoJuego.js` para almacenar el nombre procesado y utiliza el hook `useNavigate` de `react-router-dom` mediante `const navigate = useNavigate()` para redirigir de forma automática hacia `/juego` al completar con éxito el proceso, renderizando de forma limpia y las cajas visuales con el título, input y botón de comenzar.
+## 📁 public (data/):
 
+###  `rondasJuego1.json`:
+Contiene el conjunto de datos estructurados en formato JSON con los animales, sus emojis y las opciones de comida correspondientes.
 
-## 📄 `Pantalla02.jsx`:
-Componente del juego 1 ("¡Hora de Comer!"). Importa `guardarPuntajeJuego1` desde `estadoJuego.js` y el hook `useNavigate` de `react-router-dom` mediante `const navigate = useNavigate()` para gestionar la transición hacia `/juego2`. Al finalizar las rondas, guarda el puntaje final limitado a 50 puntos y alterna de manera fluida entre la interfaz de juego activo y la pantalla de finalización.
+Define las rondas del primer minijuego interactivo sobre la alimentación correcta de los animales de la granja.
 
-## 📄 `Pantalla03.jsx`:
-Componente de resultados temporales. Extrae la información de la memoria global del servicio `estadoJuego.js` para mostrar el nombre del jugador y el puntaje acumulado en el Juego 1 sobre el total esperado.
+Se conecta directamente con el servicio calculoPantalla02.js a través de la función asíncrona que carga y procesa las rondas.
 
-## 🛠️ Servicios (services/)
+###  `rondasJuego1.json`:
+Almacena las estructuras de datos en formato JSON con los grupos de opciones para identificar al animal intruso.
 
-## ⚙️ `calculoPantalla01.js:`
+Define las rondas del segundo minijuego desafiando al usuario a reconocer elementos ajenos al entorno rural.
 
-Implementa funciones para validar que la entrada sea de tipo texto, no esté vacía y contenga únicamente caracteres alfabéticos válidos:
+Se conecta directamente con el servicio calculoPantalla03.js mediante la función encargada de consumir y barajar las rondas.
 
-esTipoTextoValido(valor): Verifica que el dato recibido sea estrictamente de tipo string.
+### Archivos Creados:
+- `src/css/EstiloPantalla03.css`
+- `src/css/EstiloPantalla04.css`
+- `src/pages/Pantalla03.jsx`
+- `src/pages/Pantalla04.jsx`
+- `src/services/calculoPantalla03.js`
+- `src/componets/PlantillaJuegoBase.js`
+- `src/hooks/useFondoPantalla.js`
+- `src/hooks/useJuego.js`
+- `src/hooks/useProgresoPartida.js`
 
-esTextoNoVacio(texto): Limpia espacios en blanco con trim() y confirma que tenga longitud mayor a 0.
+### Archivos Modificados:
+- `src/services/calculoPantalla01.js`
+- `src/services/calculoPantalla02.js`
+- `src/services/calculoPantalla03.js`
+- `src/services/calculoPantalla04.js`
+- `src/services/estadoJuego.js`
+- `src/services/utilidades.js`
 
-esSoloTextoAlfabetico(texto): Aplica expresión regular (/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/) para asegurar que solo contenga letras, espacios y caracteres en español (sin números ni símbolos).
-
-validarNombreJugador(nombre): Orquesta las tres funciones anteriores y retorna un objeto de respuesta con el estado de validación (valido), el mensaje de error correspondiente o el nombre procesado.
-
-## `calculoPantalla02.js:`
-
-Módulo encargado de barajar aleatoriamente las opciones de comida de cada ronda base, evaluar si la respuesta del usuario es correcta, calcular puntajes y preparar el formato de guardado seguro:
-
-mezclarArray(array): Implementa el algoritmo de ordenamiento aleatorio (Fisher-Yates) para desordenar dinámicamente la lista de comidas en cada partida.
-
-rondasJuego1: Arreglo de rondas base (Vaca, Gallina, Chancho, Oveja, Caballo) generado automáticamente con las opciones de comida previamente barajadas.
-
-calcularPuntajeYValidacion(opcionElegida, opcionCorrecta, puntajeActual): Compara la opción seleccionada con la correcta, suma 10 puntos si acierta y asigna los mensajes ("🎉 Correcto..." / "❌ ¡Esa no es...") y clases CSS dinámicas (pantalla02__mensaje--correcto / pantalla02__mensaje--incorrecto).
-
-prepararGuardadoFinal(puntajeFinal): Asegura la integridad del puntaje limitando el máximo a 50 puntos (Math.min) antes de almacenarlo.
-
-## `⚙️ estadoJuego.js:`
-
-Almacén de estado en memoria global de la partida. Permite registrar y recuperar de forma segura el nombre del jugador y los puntajes obtenidos en los distintos juegos:
-
-memoriaPartida: Objeto global centralizado que actúa como fuente única de verdad para nombreJugador, puntajeJuego1 y puntajeJuego2.
-
-guardarNombreJugador(nombre): Modifica la clave nombreJugador con la entrada validada de la Pantalla 01.
-
-guardarPuntajeJuego1(puntaje): Registra el puntaje acumulado al finalizar las 5 rondas de la Pantalla 02.
-
-obtenerResumenPartida(): Retorna una copia de todo el estado global para ser consumido en la Pantalla 04 (Resultados).
-
----
-
-## 📁 Gestión de Archivos
-
-- **Archivos Creados:**
-  - `src/components/Boton.jsx`
-  - `src/css/EstiloPantalla01.css`
-  - `src/css/EstiloPantalla02.css`
-  - `src/css/EstiloPantalla03.css`
-  - `src/pages/Pantalla01.jsx`
-  - `src/pages/Pantalla02.jsx`
-  - `src/pages/Pantalla03.jsx`
-  - `src/services/calculoPantalla01.js`
-  - `src/services/calculoPantalla02.js`
-  - `src/services/estadoJuego.js`
-  - `src/app.jsx`
-  - `src/main.jsx`
-- **Archivos Modificados:**
-  - `src/components/Boton.jsx`
-  - `src/css/EstiloPantalla01.css`
-  - `src/css/EstiloPantalla02.css`
-  - `src/css/EstiloPantalla03.css`
-  - `src/pages/Pantalla01.jsx`
-  - `src/pages/Pantalla02.jsx`
-  - `src/pages/Pantalla03.jsx`
-  - `src/app.jsx`
-  - `src/main.jsx`
 - **Archivos Eliminados:** N/A
-
-
----
 
 ## 🤖 Uso de Inteligencia Artificial
 
@@ -106,7 +127,16 @@ obtenerResumenPartida(): Retorna una copia de todo el estado global para ser con
   - [x] **Medio (Guía):** Consulta para resolver dudas y corregir errores.
   - [ ] **Bajo (Consulta puntual):** Ayuda rápida para resolver dudas menores.
 
-# 📋 Reporte de Progreso General - Proyecto 04
+
+
+
+
+
+
+
+
+
+
 
 ## 👤 Reporte de Progreso - Miembro 2
 

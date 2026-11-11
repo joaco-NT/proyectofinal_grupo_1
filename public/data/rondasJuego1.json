@@ -1,0 +1,8 @@
+
+[
+  { "id": 1, "animal": "Vaca", "emoji": "🐄", "opciones": ["Pasto", "Carne", "Banana"], "correcta": "Pasto" },
+  { "id": 2, "animal": "Gallina", "emoji": "🐔", "opciones": ["Maíz", "Pasto", "Pescado"], "correcta": "Maíz" },
+  { "id": 3, "animal": "Chancho", "emoji": "🐷", "opciones": ["Todo", "Solo Pasto", "Solo Carne"], "correcta": "Todo" },
+  { "id": 4, "animal": "Oveja", "emoji": "🐑", "opciones": ["Pasto", "Hamburguesa", "Pizza"], "correcta": "Pasto" },
+  { "id": 5, "animal": "Caballo", "emoji": "🐎", "opciones": ["Pasto y Zanahoria", "Pollo", "Helado"], "correcta": "Pasto y Zanahoria" }
+]
