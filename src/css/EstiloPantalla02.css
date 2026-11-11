@@ -1,182 +1,272 @@
+
+
 /* ==========================================
-   ESTILOS DE LA PANTALLA 02
+   .pantalla02 (Contenedor Principal)
    ========================================== */
-
-body.body-pantalla02 {
-  margin: 0;
-  padding: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  background-color: #fffaf0;
-  background-image: radial-gradient(#ffd699 1.5px, transparent 1.5px), radial-gradient(#ffd699 1.5px, #fffaf0 1.5px);
-  background-size: 30px 30px;
-  background-position: 0 0, 15px 15px;
-  font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', 'Bubblegum Sans', sans-serif;
-}
-
-body.body-pantalla02 #root, 
-body.body-pantalla02 .MuiContainer-root {
-  width: 100vw;
-  height: 100vh;
-  max-width: 100% !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  box-sizing: border-box;
-}
-
 .pantalla02 {
+  /* 1. Posicionamiento */
+  position: relative;
+  
+  /* 2. Modelo de Caja y Layout */
   width: 520px;
   max-width: 90%;
-  background-color: #ffffff;
   padding: 25px 30px;
-  border-radius: 35px;
-  border: 4px solid #ffcc66;
-  box-shadow: 0 12px 30px rgba(255, 180, 100, 0.25);
-  text-align: center;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 15px;
-  box-sizing: border-box;
+  
+  /* 3. Tipografía */
+  text-align: center;
+  
+  /* 4. Estilos Visuales */
+  background-color: #ffffff;
+  border-radius: 35px;
+  border: 4px solid #ffe082;
+  box-shadow: 0 12px 30px rgba(255, 224, 130, 0.25);
+  
 }
 
+
+/* ==========================================
+   .pantalla02__caja-general
+   ========================================== */
 .pantalla02__caja-general {
-  background-color: #fffef8;
+
+  /* 1. Modelo de Caja y Layout */
   padding: 15px 20px;
+  
+  /* 2. Estilos Visuales */
+  background-color: #fffbf0;
   border-radius: 20px;
-  border: 3px dashed #ffebad;
+  border: 3px dashed #ffe082;
+
 }
 
-.pantalla02__emoji-animal {
-  font-size: 50px;
+
+/* ==========================================
+   .pantalla02__contenedor-indicador
+   ========================================== */
+.pantalla02__contenedor-indicador {
+
+  /* 1. Modelo de Caja y Layout */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+
 }
 
+
+/* ==========================================
+   .pantalla02__emoji-grande
+   ========================================== */
+.pantalla02__emoji-grande {
+  /* 1. Modelo de Caja y Layout */
+  display: inline-block;
+  margin: 5px 0;
+  
+  /* 2. Tipografía */
+  font-size: 95px !important;
+  line-height: 1.1;
+
+}
+
+
+/* ==========================================
+   .pantalla02__titulo
+   ========================================== */
 .pantalla02__titulo {
-  font-size: 24px;
-  color: #ff9933;
+
+  /* 1. Modelo de Caja y Layout */
   margin: 0;
-  text-shadow: 1px 1px 0px #ffe5cc;
+  
+  /* 3. Tipografía */
+  font-size: 24px;
+  text-shadow: 1px 1px 0px #fff8e1;
+  
+  /* 4. Estilos Visuales */
+  color: #f57c00;
+  
+
 }
 
+
+/* ==========================================
+   .pantalla02__texto
+   ========================================== */
 .pantalla02__texto {
-  font-size: 18px;
+
+  /* 1. Modelo de Caja y Layout */
   margin-top: 8px;
-  color: #6b4f4f;
+  
+  /* 2. Tipografía */
+  font-size: 18px;
   font-weight: bold;
+  
+  /* 3. Estilos Visuales */
+  color: #5d4037;
+  
 }
 
+
+/* ==========================================
+   .pantalla02__pregunta
+   ========================================== */
 .pantalla02__pregunta {
-  font-size: 20px;
+  /* 1. Modelo de Caja y Layout */
   margin: 0 0 12px 0;
-  color: #8c669b;
+  
+  /* 3. Tipografía */
+  font-size: 20px;
   font-weight: bold;
+  
+  /* 4. Estilos Visuales */
+  color: #e65100;
+
 }
 
+
+/* ==========================================
+   .pantalla02__texto-animal
+   ========================================== */
+.pantalla02__texto-animal {
+  /* 1. Modelo de Caja y Layout */
+  margin-top: 5px;
+  
+  /* 3. Tipografía */
+  font-size: 18px;
+  font-weight: bold;
+  
+  /* 4. Estilos Visuales */
+  color: #5d4037;
+  
+}
+
+
+/* ==========================================
+   .pantalla02__grupo-botones
+   ========================================== */
 .pantalla02__grupo-botones {
+  /* 1. Modelo de Caja y Layout */
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 30px;
+  gap: 20px;
   flex-wrap: wrap;
+
 }
 
-/* ==========================================
-   BOTONES (Base unificada + Movimientos + Colores)
-   ========================================== */
 
-/* 1. Estilos base y animaciones de interacción comunes */
-.pantalla02__boton-opcion,
-.pantalla02__boton-siguiente {
-  box-sizing: border-box;
+/* ==========================================
+   .pantalla02__boton-opcion
+   ========================================== */
+.pantalla02__boton-opcion {
+  /* 1. Posicionamiento */
+  position: relative;
+  
+  /* 2. Modelo de Caja y Layout */
+  width: 150px;
+  padding: 14px 10px;
+  
+  /* 3. Tipografía */
+  font-size: 17px;
   font-weight: bold;
+  
+  /* 4. Estilos Visuales */
+  background-color: #ffe082;
+  color: #5d4037;
+  border: 4px solid #ffd54f;
   border-radius: 18px;
+  box-shadow: 0 5px 0px #ffa000;
+  
+  /* 5. Transiciones y Extras */
   cursor: pointer;
   transition: all 0.1s ease-in-out;
 }
 
-.pantalla02__boton-opcion:hover:not(:disabled),
-.pantalla02__boton-siguiente:hover {
+.pantalla02__boton-opcion:hover:not(:disabled) {
+  background-color: #ffd54f;
+  box-shadow: 0 7px 0px #ff8f00;
   transform: translateY(-2px) scale(1.03);
 }
 
-.pantalla02__boton-opcion:active:not(:disabled),
-.pantalla02__boton-siguiente:active {
-  transform: translateY(2px);
-}
-
-/* 2. Botón de Opciones (Específico) */
-.pantalla02__boton-opcion {
-  width: 150px;
-  padding: 14px 10px;
-  font-size: 17px;
-  background-color: #ffb366;
-  color: #ffffff;
-  border: 4px solid #ff9933;
-  box-shadow: 0 5px 0px #e67300;
-}
-
-.pantalla02__boton-opcion:hover:not(:disabled) {
-  background-color: #ff9933;
-  box-shadow: 0 7px 0px #cc6600;
-}
-
 .pantalla02__boton-opcion:active:not(:disabled) {
-  box-shadow: 0 2px 0px #cc6600;
+  box-shadow: 0 2px 0px #ff8f00;
+  transform: translateY(2px);
 }
 
 .pantalla02__boton-opcion:disabled {
-  background-color: #e6b885;
-  color: #fff5e6;
-  border: 4px solid #cc9966;
-  box-shadow: 0 2px 0px #996633;
-  cursor: not-allowed;
+  background-color: #ffe082;
+  color: #8d6e63;
+  border: 4px solid #ffd54f;
+  box-shadow: 0 2px 0px #ffa000;
   opacity: 0.9;
+  cursor: not-allowed;
   transform: translateY(2px);
 }
 
-/* 3. Botón Siguiente (Específico) */
+
+/* ==========================================
+   .pantalla02__boton-siguiente
+   ========================================== */
 .pantalla02__boton-siguiente {
+  /* 1. Posicionamiento */
+  position: relative;
+  display: block;
+  
+  /* 2. Modelo de Caja y Layout */
   width: 200px;
   margin: 15px auto 0 auto;
   padding: 14px 20px;
+  
+  /* 3. Tipografía */
   font-size: 18px;
-  background-color: #66b3ff;
+  font-weight: bold;
+  
+  /* 4. Estilos Visuales */
+  background-color: #ffb74d;
   color: #ffffff;
-  border: 4px solid #3399ff;
-  box-shadow: 0 5px 0px #0066cc;
-  display: block;
+  border: 4px solid #ffa726;
+  border-radius: 18px;
+  box-shadow: 0 5px 0px #e65100;
+  
+  /* 5. Transiciones y Extras */
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
 }
 
 .pantalla02__boton-siguiente:hover {
-  background-color: #3399ff;
-  box-shadow: 0 7px 0px #004c99;
+  background-color: #ffa726;
+  box-shadow: 0 7px 0px #ef6c00;
+  transform: translateY(-2px) scale(1.03);
 }
 
 .pantalla02__boton-siguiente:active {
-  box-shadow: 0 2px 0px #004c99;
+  box-shadow: 0 2px 0px #ef6c00;
+  transform: translateY(2px);
 }
+
 
 /* ==========================================
-   MENSAJES Y ANIMACIONES
+   .pantalla02__mensaje
    ========================================== */
 .pantalla02__mensaje {
+  /* 1. Posicionamiento */
+  
+  /* 2. Modelo de Caja y Layout */
   margin: 10px 0 0 0;
-  font-size: 19px;
   padding: 10px 20px;
-  border-radius: 15px;
   display: inline-block;
+  
+  /* 3. Tipografía */
+  font-size: 19px;
   font-weight: bold;
-  animation: popIn 0.3s ease-out;
-}
-
-@keyframes popIn {
-  0% { transform: scale(0.8); opacity: 0; }
-  70% { transform: scale(1.05); }
-  100% { transform: scale(1); opacity: 1; }
+  
+  /* 4. Estilos Visuales */
+  border-radius: 15px;
+  
 }
 
 .pantalla02__mensaje--correcto {

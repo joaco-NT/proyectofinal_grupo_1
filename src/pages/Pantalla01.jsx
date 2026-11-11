@@ -1,73 +1,92 @@
-import React, { useState, useEffect } from "react";
+
+// 1. Librerías por defecto
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+// 2. Componentes visuales propios
 import Boton from "../components/Boton";
-import { guardarNombreJugador } from "../services/estadoJuego";
+
+// 3. Motorización propia (servicios, hooks y estilos)
 import { validarNombreJugador } from "../services/calculoPantalla01";
+import { useFondoPantalla } from "../hooks/useFondoPantalla";
+import { useProgresoPartida } from "../hooks/useProgresoPartida";
 import "../css/EstiloPantalla01.css";
 
 const Pantalla01 = () => {
-  const navigate = useNavigate();
+  useFondoPantalla("body-pantalla01");
 
-  // --- A. Memoria ---
+  const navigate = useNavigate();
+  const { registrarNombre } = useProgresoPartida();
   const [nombre, setNombre] = useState("");
   const [error, setError] = useState("");
 
-  // --- B. Acciones ---
-  const manejarCambioInput = (e) => {
-    const valor = e.target.value;
-    setNombre(valor);
-    if (error) setError("");
-  };
-
   const manejarComenzar = () => {
     const resultado = validarNombreJugador(nombre);
-
     if (!resultado.valido) {
       setError(resultado.error);
       return;
     }
-
-    guardarNombreJugador(resultado.nombreProcesado);
+    registrarNombre(resultado.nombreProcesado);
     navigate("/juego1");
   };
 
-  // --- C. Efectos ---
-  useEffect(() => {
-    document.body.classList.add("body-pantalla01");
-    return () => document.body.classList.remove("body-pantalla01");
-  }, []);
+  const manejarCambioInput = (e) => {
+    setNombre(e.target.value);
+    if (error) setError("");
+  };
 
-  /* ==========================
-     ESCENARIO (Solo Muestra)
-     ========================== */
+  // --- PREPARACIÓN DE DATOS PARA LA VISTA ---
+  const claseBaseEstilo = "pantalla01";
+
+  const datosFormulario = {
+    tituloPrincipal: "🏡 ¡Aventura en la Granja!",
+    preguntaTexto: "¿Cómo te llamas?",
+    valorNombre: nombre,
+    placeholderTexto: "Tu nombre aquí...",
+    mensajeError: error,
+    textoBoton: "¡Comenzar! 🚀",
+    alCambiarNombre: manejarCambioInput,
+    alHacerClickBoton: manejarComenzar
+  };
+
   return (
-    <main className="pantalla01">
-      {/* Caja 1: Título */}
-      <header className="pantalla01__caja-general">
-        <h1 className="pantalla01__titulo">🏡 ¡Aventura en la Granja!</h1>
-      </header>
+    <EstructuraPantalla01
+      claseBaseEstilo={claseBaseEstilo}
+      datosFormulario={datosFormulario}
+    />
+  );
+};
 
-      {/* Caja 2: Input de nombre y error */}
-      <section className="pantalla01__caja-general">
-        <p className="pantalla01__pregunta">¿Cómo te llamas?</p>
-        
+const EstructuraPantalla01 = ({ claseBaseEstilo, datosFormulario }) => {
+  const renderizarEncabezado = (textoTitulo) => (
+    <header className={`${claseBaseEstilo}__caja-general`}>
+      <h1 className={`${claseBaseEstilo}__titulo`}>{textoTitulo}</h1>
+    </header>
+  );
+
+  return (
+    <main className={claseBaseEstilo}>
+      {renderizarEncabezado(datosFormulario.tituloPrincipal)}
+
+      <section className={`${claseBaseEstilo}__caja-general`}>
+        <p className={`${claseBaseEstilo}__pregunta`}>{datosFormulario.preguntaTexto}</p>
         <input 
           type="text" 
-          value={nombre}
-          onChange={manejarCambioInput}
-          placeholder="Tu nombre aquí..."
-          className="pantalla01__input-nombre"
+          value={datosFormulario.valorNombre}
+          onChange={datosFormulario.alCambiarNombre}
+          placeholder={datosFormulario.placeholderTexto}
+          className={`${claseBaseEstilo}__input-nombre`}
         />
-
-        {error && <p className="pantalla01__error">{error}</p>}
+        {datosFormulario.mensajeError && (
+          <p className={`${claseBaseEstilo}__error`}>{datosFormulario.mensajeError}</p>
+        )}
       </section>
 
-      {/* Caja 3: Acción de inicio */}
-      <section className="pantalla01__caja-general">
+      <section className={`${claseBaseEstilo}__caja-general`}>
         <Boton 
-          texto="¡Comenzar! 🚀" 
-          alHacerClick={manejarComenzar} 
-          claseCSS="pantalla01__boton-comenzar"
+          texto={datosFormulario.textoBoton} 
+          alHacerClick={datosFormulario.alHacerClickBoton} 
+          claseCSS={`${claseBaseEstilo}__boton-comenzar`} 
         />
       </section>
     </main>
