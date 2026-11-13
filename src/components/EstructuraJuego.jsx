@@ -5,14 +5,14 @@ import React from "react";
 // 2. Componentes visuales propios
 import Boton from "./Boton";
 
-const PlantillaJuegoBase = ({
+const EstructuraJuego = ({
   claseBaseEstilo,
   juegoTerminado,
   juegoActivo,
   juegoTerminadoDatos
 }) => {
 
-  // --- FUNCIONES INTERNAS (Estilo Escolar) ---
+  // --- FUNCIONES INTERNAS ---
 
   const renderizarEncabezado = (textoTitulo) => (
     <header className={`${claseBaseEstilo}__caja-general`}>
@@ -86,10 +86,6 @@ const PlantillaJuegoBase = ({
     <main className={claseBaseEstilo}>
       {renderizarEncabezado("🎉 ¡Juego terminado!")}
 
-      {/* <section className={`${claseBaseEstilo}__caja-general`}>
-        <p className={`${claseBaseEstilo}__texto`}>Puntaje final: {juegoTerminadoDatos.puntajeFinal} / 50</p>
-      </section> */}
-
       <section className={`${claseBaseEstilo}__caja-general`}>
         <p className={`${claseBaseEstilo}__pregunta`}>¿Listo para el siguiente reto?</p>
         <Boton 
@@ -105,4 +101,4 @@ const PlantillaJuegoBase = ({
   return juegoTerminado ? renderizarAreaJuegoTerminado() : renderizarAreaJuegoActivo();
 };
 
-export default PlantillaJuegoBase;
+export default EstructuraJuego;
