@@ -1,0 +1,72 @@
+
+/* ==========================================
+   ESTILOS: ACCESO / INICIO DE SESIÓN
+   ========================================== */
+.pantalla01 {
+  width: 480px;
+  max-width: 90%;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: var(--radio-caja);
+  box-shadow: var(--sombra-general);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border: 4px solid var(--color-login-borde);
+}
+
+.pantalla01__caja-general {
+  padding: 15px;
+  border-radius: 15px;
+  background-color: var(--color-login-fondo);
+  border: 2px dashed var(--color-login-borde);
+}
+
+.pantalla01__titulo {
+  color: var(--color-login-primario);
+  font-size: 26px;
+}
+
+.pantalla01__pregunta {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.pantalla01__input-nombre {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 16px;
+  border: 2px solid #81c784;
+  border-radius: 12px;
+  outline: none;
+  text-align: center;
+}
+
+.pantalla01__input-nombre:focus {
+  border-color: var(--color-login-primario);
+}
+
+.pantalla01__error {
+  color: #d32f2f;
+  font-size: 14px;
+  margin-top: 8px;
+  font-weight: bold;
+}
+
+.pantalla01__boton-comenzar {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.pantalla01__boton-comenzar:hover {
+  background-color: #388e3c;
+}
