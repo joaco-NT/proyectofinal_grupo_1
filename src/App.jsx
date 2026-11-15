@@ -5,7 +5,7 @@
 import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import "./css/EstiloGlobal.css"; // Estilos base y transiciones transversales
-
+import MusicaFondo from "./components/MusicaFondo";
 export default function App() {
   const ubicacion = useLocation();
 
@@ -21,6 +21,8 @@ export default function App() {
 
   return (
     <div className="app-contenedor-principal">
+      {/* Música de fondo */}
+      <MusicaFondo />
       <div key={ubicacion.pathname} className="transicion-pagina">
         <Outlet />
       </div>
