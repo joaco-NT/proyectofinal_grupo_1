@@ -1,0 +1,127 @@
+
+/* ==========================================
+   ESTILOS: PANEL DOCENTE / ADMINISTRADOR
+   ========================================== */
+.admin-contenedor {
+  width: 850px;
+  max-width: 95%;
+  min-height: 500px;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 30px;
+  box-shadow: var(--sombra-general);
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  border: 4px solid #90caf9;
+}
+
+/* Barra superior */
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #e3f2fd;
+  padding: 15px 25px;
+  border-radius: 20px;
+  border: 2px dashed #90caf9;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.admin-badge {
+  background-color: #1976d2;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+
+.admin-tabs {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.admin-tab {
+  background: none;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  color: #555;
+  cursor: pointer;
+  padding-bottom: 4px;
+  border-bottom: 3px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.admin-tab:hover, .admin-tab--activo {
+  color: #1976d2;
+  border-bottom-color: #1976d2;
+}
+
+/* Sección de Lista de Alumnos */
+.admin-seccion-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.admin-titulo-lista {
+  text-align: center;
+  font-size: 22px;
+  color: #0d47a1;
+  font-weight: bold;
+}
+
+/* Tabla de puntajes */
+.admin-tabla-wrapper {
+  overflow-x: auto;
+  border-radius: 15px;
+  border: 2px solid #bbdefb;
+}
+
+.admin-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  background-color: #fff;
+}
+
+.admin-tabla th {
+  background-color: #e3f2fd;
+  color: #0d47a1;
+  padding: 14px 18px;
+  font-size: 16px;
+  border-bottom: 2px solid #bbdefb;
+  text-align: center;
+}
+
+.admin-tabla th:first-child {
+  text-align: left;
+}
+
+.admin-tabla td {
+  padding: 12px 18px;
+  color: #333;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 15px;
+  text-align: center;
+}
+
+.admin-tabla td:first-child {
+  text-align: left;
+  font-weight: 600;
+}
+
+.admin-tabla tr:hover {
+  background-color: #f5f9ff;
+}
+
+/* Botón inferior */
+.admin-footer {
+  display: flex;
+  justify-content: flex-end;
+}
