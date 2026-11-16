@@ -1,40 +1,25 @@
 
-import React, { useEffect, useRef, useState } from "react";
+// ==========================================
+// COMPONENTE: Música de Fondo (Cascarón Delgado)
+// ==========================================
+import React from "react";
+import { useMusicaFondo } from "../hooks/useMusicaFondo";
+import { useEntorno } from "../hooks/useEntorno"; 
 import "../css/EstiloMusica.css";
 
 const MusicaFondo = () => {
-  const audioRef = useRef(null);
-  const [reproduciendo, setReproduciendo] = useState(false);
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = 0.10; 
-    }
-  }, []);
-  const alternarMusica = async () => {
-    const audio = audioRef.current;
+  const { esIframe } = useEntorno();
+  const { audioRef, reproduciendo, alternarMusica } = useMusicaFondo();
 
-    if (!audio) return;
-
-    if (audio.paused) {
-      try {
-        await audio.play();
-        setReproduciendo(true);
-        console.log("Música reproduciéndose");
-      } catch (error) {
-        console.error("Error al reproducir el audio:", error);
-        setReproduciendo(false);
-      }
-    } else {
-      audio.pause();
-      setReproduciendo(false);
-    }
-  };
+  if (esIframe) {
+    return null;
+  }
 
   return (
     <>
       <audio
         ref={audioRef}
-        src="/sound/musicaFondo.mp3"
+        src="/sounds/musicaFondo.mp3"
         loop
         preload="auto"
         onError={() => console.error("No se pudo cargar el audio")}

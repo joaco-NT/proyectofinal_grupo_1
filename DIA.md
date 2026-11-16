@@ -103,7 +103,6 @@ Se conecta directamente con el servicio calculoPantalla03.js mediante la funció
 - `src/componets/PlantillaJuegoBase.js`
 - `src/hooks/useFondoPantalla.js`
 - `src/hooks/useJuego.js`
-- `src/hooks/useProgresoPartida.js`
 
 ### Archivos Modificados:
 - `src/services/calculoPantalla01.js`

@@ -1,31 +1,25 @@
 
-// ==========================================
-// CAPA DE PRESENTACIÓN / PÁGINA: Inicio de Sesión
-// ==========================================
 import React from "react";
-import EstructuraLogin from "../components/EstructuraLogin";
-import { useInicioSesion } from "../hooks/useInicioSesion";
+import ContenidoPrincipal from "../components/EstructuraLogin";
+import { useLogin } from "../hooks/useInicioSesion";
+import { useEntorno } from "../hooks/useEntorno";
+import miJsonLogin from "../data/textosLogin.json";
 import "../css/EstiloLogin.css";
 
 const InicioSesion = () => {
-  const {
-    esVistaPreviaEnIframe,
-    credenciales,
-    error,
-    actualizarCampo,
-    manejarComenzar
-  } = useInicioSesion();
+  const { esIframe } = useEntorno("body-login");
+
+  const dinamicos = useLogin(esIframe);
+
+  const paqueteMaestro = {
+    ...miJsonLogin,
+    dinamicos
+  };
 
   return (
-    <EstructuraLogin
-      claseBaseEstilo="pantalla01"
-      esVistaPreviaEnIframe={esVistaPreviaEnIframe}
-      identificador={credenciales.identificador}
-      password={credenciales.password}
-      error={error}
-      alCambiarIdentificador={actualizarCampo("identificador")}
-      alCambiarPassword={actualizarCampo("password")}
-      alHacerClickIngresar={manejarComenzar}
+    <ContenidoPrincipal 
+      fuenteDatos={paqueteMaestro} 
+      esIframe={esIframe} 
     />
   );
 };
