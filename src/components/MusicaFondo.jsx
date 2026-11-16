@@ -1,5 +1,7 @@
 
-
+// ==========================================
+// COMPONENTE: Música de Fondo (Cascarón Delgado)
+// ==========================================
 import React from "react";
 import { useMusicaFondo } from "../hooks/useMusicaFondo";
 import { useEntorno } from "../hooks/useEntorno"; 
