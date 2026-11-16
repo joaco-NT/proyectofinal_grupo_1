@@ -1,23 +1,16 @@
 
-// ==========================================
-// PLANTILLA: JUEGOS (Juego 1 y Juego 2)
-// Arquitectura: Abuelo ➔ Macros ➔ Micros (Cero textos, cero estilos en línea)
-// ==========================================
+
 import React from "react";
 import Boton from "./Boton";
 
-// ------------------------------------------
-// 1. EL ABUELO (Contenedor Raíz)
-// ------------------------------------------
+
 const ContenidoPrincipal = ({ fuenteDatos = {}, esIframe = false }) => {
   return (
     <MacroEstructura datosCompartidos={fuenteDatos} esIframe={esIframe} />
   );
 };
 
-// ------------------------------------------
-// 2. LOS MACROS (Organizadores de Layout)
-// ------------------------------------------
+
 const MacroEstructura = ({ datosCompartidos }) => {
   const base = datosCompartidos?.dinamicos?.memoria?.claseBaseEstilo || "juego1";
   const juegoTerminado = datosCompartidos?.dinamicos?.efecto?.juegoTerminado || false;
@@ -72,9 +65,6 @@ const MacroSectionTerminado = ({ datos, base }) => (
   </section>
 );
 
-// ------------------------------------------
-// 3. LOS MICROS (Átomos / Componentes Visuales Finales)
-// ------------------------------------------
 const MicroTituloActivo = ({ paquete, base }) => {
   const { titulo } = paquete?.Bloque1 || {};
   return <h1 className={`${base}__titulo`}>{titulo}</h1>;

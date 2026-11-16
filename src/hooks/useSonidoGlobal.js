@@ -1,7 +1,4 @@
 
-// ==========================================
-// CUSTOM HOOK: Control de sonidos globales
-// ==========================================
 import { useEffect } from "react";
 import { reproducirSonidoClick } from "../services/sonido";
 

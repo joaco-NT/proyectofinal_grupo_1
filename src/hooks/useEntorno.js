@@ -1,7 +1,4 @@
 
-// ==========================================
-// CUSTOM HOOK: useEntorno.js (Entorno Global e Iframe)
-// ==========================================
 import { useState, useEffect } from "react";
 
 export const useEntorno = (claseBody = "body-login") => {

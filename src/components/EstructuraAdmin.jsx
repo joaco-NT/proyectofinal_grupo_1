@@ -1,26 +1,18 @@
 
-// ==========================================
-// PLANTILLA: PANEL ADMIN / DOCENTE
-// Arquitectura: Abuelo ➔ Macros ➔ Micros (Cero estilos en línea)
-// ==========================================
 import React from "react";
 import Boton from "./Boton";
 import { evaluarYReproducirSonido, reproducirSonidoCurso } from "../services/sonido";
 import { calcularPuntajeTotal } from "../services/calculos";
 import { PANTALLAS_ALUMNO } from "../routes/Rutas";
 
-// ------------------------------------------
-// 1. EL ABUELO (Contenedor Raíz)
-// ------------------------------------------
+
 const ContenidoPrincipal = ({ fuenteDatos = {}, esIframe = false }) => {
   return (
     <MacroEstructura datosCompartidos={fuenteDatos} esIframe={esIframe} />
   );
 };
 
-// ------------------------------------------
-// 2. LOS MACROS (Organizadores de Layout)
-// ------------------------------------------
+
 const MacroEstructura = ({ datosCompartidos }) => {
   return (
     <main className="admin-contenedor fade-in">
@@ -58,9 +50,7 @@ const MacroFooter = ({ datos }) => (
   </footer>
 );
 
-// ------------------------------------------
-// 3. LOS MICROS (Átomos / Componentes Visuales Finales)
-// ------------------------------------------
+
 const MicroInsigniaDocente = ({ paquete }) => {
   const { insigniaDocente, tooltipInsignia } = paquete?.Bloque1 || {};
   const alIrAlMenuDocente = paquete?.dinamicos?.accion?.alIrAlMenuDocente;

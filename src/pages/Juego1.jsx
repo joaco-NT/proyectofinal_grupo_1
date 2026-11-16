@@ -1,7 +1,4 @@
 
-// ==========================================
-// PÁGINA: Juego 1 (Cascarón Delgado)
-// ==========================================
 import React from "react";
 import ContenidoPrincipal from "../components/EstructuraJuego";
 import { useJuego1 } from "../hooks/useJuego1";

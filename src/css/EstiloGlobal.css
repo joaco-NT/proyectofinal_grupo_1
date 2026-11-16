@@ -1,31 +1,25 @@
 
-/* ==========================================
-   ESTILOS Y DESIGN TOKENS GLOBALES (DRY)
-   ========================================== */
+
 :root {
   --fuente-principal: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   
-  /* Tokens de Login */
   --color-login-primario: #2e7d32;
   --color-login-fondo: #f1f8e9;
   --color-login-borde: #a5d6a7;
 
-  /* Tokens de Juego 1 */
   --color-juego1-primario: #d84315;
   --color-juego1-fondo: #fffbf0;
   --color-juego1-borde: #ffe082;
 
-  /* Tokens de Juego 2 */
   --color-juego2-primario: #00838f;
   --color-juego2-fondo: #f0f9fa;
   --color-juego2-borde: #80deea;
 
-  /* Tokens de Resultados */
+
   --color-resultados-primario: #6a1b9a;
   --color-resultados-fondo: #f3e5f5;
   --color-resultados-borde: #ce93d8;
 
-  /* Tokens generales */
   --sombra-general: 0 12px 30px rgba(0, 0, 0, 0.1);
   --radio-caja: 30px;
 }

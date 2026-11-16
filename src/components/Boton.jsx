@@ -1,13 +1,11 @@
 
-// ==========================================
-// COMPONENTE: Botón reutilizable (Con sonidos globales automáticos)
-// ==========================================
+
 import React from "react";
 import { evaluarYReproducirSonido, reproducirSonidoCurso } from "../services/sonido";
 
 export const Boton = ({ contenido, bloqueado, accion, estilo, alPasarCursor, title }) => {
   const manejarClick = (evento) => {
-    evaluarYReproducirSonido(); // Reproduce el sonido de clic global
+    evaluarYReproducirSonido();
 
     if (accion !== undefined) {
       accion(evento);
@@ -15,7 +13,7 @@ export const Boton = ({ contenido, bloqueado, accion, estilo, alPasarCursor, tit
   };
 
   const manejarMouseEnter = (evento) => {
-    reproducirSonidoCurso(); // 👈 Reproduce el sonido de cursor automáticamente en cualquier botón
+    reproducirSonidoCurso(); 
 
     if (alPasarCursor !== undefined) {
       alPasarCursor(evento);

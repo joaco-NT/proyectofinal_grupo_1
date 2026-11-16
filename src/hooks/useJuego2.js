@@ -1,7 +1,4 @@
 
-// ==========================================
-// CUSTOM HOOK: useJuego2.js (Cerebro del Juego 2)
-// ==========================================
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { cargarRondasJuego, guardarPuntajeJuego } from "../services/navegador";
@@ -10,12 +7,11 @@ import { evaluarRespuesta } from "../services/calculos";
 export const useJuego2 = () => {
   const navigate = useNavigate();
 
-  // 1. MEMORIA
+
   const [rondas, setRondas] = useState([]);
   const [indiceRonda, setIndiceRonda] = useState(0);
   const [puntaje, setPuntaje] = useState(0);
 
-  // 3. EFECTO
   const [retroalimentacion, setRetroalimentacion] = useState({ mensaje: "", claseCSS: "" });
   const [juegoTerminado, setJuegoTerminado] = useState(false);
 
@@ -37,7 +33,6 @@ export const useJuego2 = () => {
 
   const rondaActual = rondas.length > 0 ? rondas[indiceRonda] : null;
 
-  // 2. ACCIÓN
   const manejarRespuesta = (opcionTexto) => {
     if (retroalimentacion.mensaje !== "") return;
 

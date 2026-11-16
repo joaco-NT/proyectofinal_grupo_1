@@ -1,7 +1,5 @@
 
-/* ==========================================
-   ESTILOS UNIFICADOS: MINIJUEGOS (Juego 1 y Juego 2)
-   ========================================== */
+
 .juego1, .juego2 {
   width: 520px;
   max-width: 90%;
@@ -82,7 +80,7 @@
   transform: scale(1.05);
 }
 
-/* Mensajes de retroalimentación */
+
 .mensaje {
   margin-top: 15px;
   padding: 10px;

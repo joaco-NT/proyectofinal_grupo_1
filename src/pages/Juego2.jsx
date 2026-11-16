@@ -1,7 +1,5 @@
 
-// ==========================================
-// PÁGINA: Juego 2 (Cascarón Delgado)
-// ==========================================
+
 import React from "react";
 import ContenidoPrincipal from "../components/EstructuraJuego";
 import { useJuego2 } from "../hooks/useJuego2";

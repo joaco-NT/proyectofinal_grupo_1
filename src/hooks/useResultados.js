@@ -1,7 +1,5 @@
 
-// ==========================================
-// CUSTOM HOOK: useResultados.js (Cerebro de Resultados)
-// ==========================================
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { obtenerResumenPartida, reiniciarPartida } from "../services/navegador";
@@ -10,7 +8,6 @@ import { obtenerMensajeFelicitacion } from "../services/calculos";
 export const useResultados = () => {
   const navigate = useNavigate();
 
-  // 1. MEMORIA
   const [resumen, setResumen] = useState({
     nombreJugador: "",
     puntajeJuego1: 0,
@@ -18,7 +15,7 @@ export const useResultados = () => {
     puntajeTotal: 0
   });
 
-  // 3. EFECTO
+
   const [estaReiniciando, setEstaReiniciando] = useState(false);
 
   useEffect(() => {
@@ -26,7 +23,7 @@ export const useResultados = () => {
     setResumen(datosPartida);
   }, []);
 
-  // 2. ACCIÓN
+
   const alHacerClickReiniciar = () => {
     setEstaReiniciando(true);
     reiniciarPartida();

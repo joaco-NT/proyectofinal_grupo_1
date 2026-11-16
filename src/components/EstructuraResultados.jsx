@@ -1,23 +1,15 @@
 
-// ==========================================
-// PLANTILLA: RESULTADOS
-// Arquitectura: Abuelo ➔ Macros ➔ Micros (Cero textos sueltos, cero estilos en línea)
-// ==========================================
+
 import React from "react";
 import Boton from "./Boton";
 
-// ------------------------------------------
-// 1. EL ABUELO (Contenedor Raíz)
-// ------------------------------------------
 const ContenidoPrincipal = ({ fuenteDatos = {}, esIframe = false }) => {
   return (
     <MacroEstructura datosCompartidos={fuenteDatos} esIframe={esIframe} />
   );
 };
 
-// ------------------------------------------
-// 2. LOS MACROS (Organizadores de Layout)
-// ------------------------------------------
+
 const MacroEstructura = ({ datosCompartidos }) => {
   const estaReiniciando = datosCompartidos?.dinamicos?.efecto?.estaReiniciando || false;
 
@@ -78,9 +70,7 @@ const MacroFooter = ({ datos }) => (
   </section>
 );
 
-// ------------------------------------------
-// 3. LOS MICROS (Átomos / Componentes Visuales Finales)
-// ------------------------------------------
+
 const MicroTituloReiniciando = ({ paquete }) => {
   const { tituloReiniciando } = paquete?.Bloque3 || {};
   return <h1 className="resultados__titulo">{tituloReiniciando}</h1>;

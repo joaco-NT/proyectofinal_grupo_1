@@ -1,7 +1,4 @@
 
-// ==========================================
-// PÁGINA: PanelAdmin (Cascarón Delgado)
-// ==========================================
 import React from "react";
 import ContenidoPrincipal from "../components/EstructuraAdmin";
 import { usePanelAdmin } from "../hooks/usePanelAdmin";

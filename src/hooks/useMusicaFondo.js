@@ -1,7 +1,4 @@
 
-// ==========================================
-// CUSTOM HOOK: Lógica y Estado de la Música de Fondo
-// ==========================================
 import { useState, useEffect, useRef } from "react";
 
 export const useMusicaFondo = () => {
@@ -10,7 +7,7 @@ export const useMusicaFondo = () => {
 
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.volume = 0.10; // Volumen inicial al 10%
+      audioRef.current.volume = 0.10;
     }
   }, []);
 

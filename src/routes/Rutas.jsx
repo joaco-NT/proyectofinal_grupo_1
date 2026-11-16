@@ -7,7 +7,6 @@ import Juego2 from "../pages/Juego2.jsx";
 import Resultados from "../pages/Resultados.jsx";
 import PanelAdmin from "../pages/PanelAdmin.jsx";
 
-// Títulos limpios y directos para las pestañas del Panel Docente
 export const PANTALLAS_ALUMNO = [
   { numero: 1, titulo: "Acceso", ruta: "/" },
   { numero: 2, titulo: "Juego 1", ruta: "/juego1" },

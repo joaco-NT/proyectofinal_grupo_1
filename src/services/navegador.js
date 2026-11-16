@@ -1,7 +1,5 @@
 
-// ==========================================
-// INFRAESTRUCTURA Y NAVEGADOR (Con operador de propagación ... solo aquí)
-// ==========================================
+
 import axios from "axios";
 import { 
   validarAcceso, 

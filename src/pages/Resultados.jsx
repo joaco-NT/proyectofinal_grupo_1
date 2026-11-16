@@ -1,7 +1,4 @@
 
-// ==========================================
-// PÁGINA: Resultados (Cascarón Delgado)
-// ==========================================
 import React from "react";
 import ContenidoPrincipal from "../components/EstructuraResultados";
 import { useResultados } from "../hooks/useResultados";

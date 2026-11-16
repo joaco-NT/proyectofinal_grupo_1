@@ -1,26 +1,16 @@
 
-// ==========================================
-// PLANTILLA APLICADA: LOGIN (Con clases CSS integradas)
-// ==========================================
-
 import React from "react";
 import Boton from "./Boton";
 import { reproducirSonidoCurso } from "../services/sonido";
 
-// ------------------------------------------
-// 1. EL ABUELO (Contenedor Raíz)
-// Recibe los datos y el estado del iframe de forma limpia
-// ------------------------------------------
+
 const ContenidoPrincipal = ({ fuenteDatos = {}, esIframe = false }) => {
   return (
     <Area_Estructura datosCompartidos={fuenteDatos} esIframe={esIframe} />
   );
 };
 
-// ------------------------------------------
-// 2. LOS MACROS / ÁREAS (Organizadores de Layout)
-// Aplican las clases principales de la caja y el modificador de iframe
-// ------------------------------------------
+
 const Area_Estructura = ({ datosCompartidos, esIframe }) => {
   return (
     <main className={`login ${esIframe ? "login--iframe" : ""}`}>

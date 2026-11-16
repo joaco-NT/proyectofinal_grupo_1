@@ -1,8 +1,4 @@
 
-// ==========================================
-// LÓGICA PURA Y CÁLCULOS (Nivel escolar estricto, sin operadores avanzados)
-// ==========================================
-
 export const filtrarAlumnos = (usuarios) => {
   return usuarios.filter((usuario) => {
     const esAlumnoRol = usuario.rol === "alumno";

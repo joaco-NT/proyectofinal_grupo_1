@@ -1,7 +1,4 @@
 
-// ==========================================
-// CUSTOM HOOK: usePanelAdmin.js (Cerebro del Panel Docente)
-// ==========================================
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { obtenerListaAlumnos, cerrarSesion } from "../services/navegador";
@@ -11,11 +8,9 @@ export const usePanelAdmin = () => {
   const navigate = useNavigate();
   const iframeRef = useRef(null);
 
-  // 1. MEMORIA
   const [pantallaActiva, setPantallaActiva] = useState(1);
   const [listaAlumnos, setListaAlumnos] = useState([]);
 
-  // 3. EFECTO
   const [mostrarTabla, setMostrarTabla] = useState(true);
 
   useEffect(() => {
@@ -40,7 +35,7 @@ export const usePanelAdmin = () => {
     return () => window.removeEventListener("message", manejarMensaje);
   }, []);
 
-  // 2. ACCIÓN
+
   const irAlMenuDocente = () => {
     setMostrarTabla(true);
   };
