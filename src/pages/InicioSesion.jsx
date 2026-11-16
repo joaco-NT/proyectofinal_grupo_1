@@ -1,31 +1,31 @@
 
 // ==========================================
-// CAPA DE PRESENTACIÓN / PÁGINA: Inicio de Sesión
+// PÁGINA: Inicio de Sesión (Cascarón Delgado)
 // ==========================================
 import React from "react";
-import EstructuraLogin from "../components/EstructuraLogin";
-import { useInicioSesion } from "../hooks/useInicioSesion";
+import ContenidoPrincipal from "../components/EstructuraLogin";
+import { useLogin } from "../hooks/useInicioSesion";
+import { useEntorno } from "../hooks/useEntorno";
+import miJsonLogin from "../data/textosLogin.json";
 import "../css/EstiloLogin.css";
 
 const InicioSesion = () => {
-  const {
-    esVistaPreviaEnIframe,
-    credenciales,
-    error,
-    actualizarCampo,
-    manejarComenzar
-  } = useInicioSesion();
+  // 1. Hook especialista en el entorno (detecta el iframe y cambia el body)
+  const { esIframe } = useEntorno("body-login");
+
+  // 2. Hook especialista en el negocio (Memoria, Acción y Efecto)
+  const dinamicos = useLogin(esIframe);
+
+  // 3. Paquete maestro que une los textos estáticos con la lógica dinámica
+  const paqueteMaestro = {
+    ...miJsonLogin,
+    dinamicos
+  };
 
   return (
-    <EstructuraLogin
-      claseBaseEstilo="pantalla01"
-      esVistaPreviaEnIframe={esVistaPreviaEnIframe}
-      identificador={credenciales.identificador}
-      password={credenciales.password}
-      error={error}
-      alCambiarIdentificador={actualizarCampo("identificador")}
-      alCambiarPassword={actualizarCampo("password")}
-      alHacerClickIngresar={manejarComenzar}
+    <ContenidoPrincipal 
+      fuenteDatos={paqueteMaestro} 
+      esIframe={esIframe} 
     />
   );
 };

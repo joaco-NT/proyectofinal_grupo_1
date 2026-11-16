@@ -1,0 +1,20 @@
+
+{
+  "Bloque1": {
+    "insigniaDocente": "DOCENTE",
+    "tooltipInsignia": "Volver a la lista de alumnos"
+  },
+  "Bloque2": {
+    "tituloTabla": "Lista Alumno",
+    "columnas": [
+      "Apellido / Nombre",
+      "Juego1: Puntaje",
+      "Juego2: Puntaje",
+      "Total Puntaje"
+    ],
+    "mensajeTablaVacia": "📭 No hay registros de alumnos todavía."
+  },
+  "Bloque3": {
+    "textoBotonCerrar": "Cerrar Sesión 🚪"
+  }
+}

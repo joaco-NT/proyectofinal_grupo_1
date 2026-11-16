@@ -1,0 +1,17 @@
+
+{
+  "Bloque1": {
+    "titulo": "🏆 ¡Aventura completada!",
+    "subtitulo": "Tus resultados",
+    "etiquetaJuego1": "🐮 Juego 1",
+    "etiquetaJuego2": "🦁 Juego 2",
+    "etiquetaTotal": "⭐ Total"
+  },
+  "Bloque2": {
+    "textoBotonReiniciar": "¡Jugar de nuevo! 🚀"
+  },
+  "Bloque3": {
+    "tituloReiniciando": "🔄 Reiniciando...",
+    "mensajeReiniciando": "Volviendo al inicio de la granja..."
+  }
+}

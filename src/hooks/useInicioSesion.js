@@ -1,53 +1,77 @@
 
 // ==========================================
-// CUSTOM HOOK: Lógica y Estado de Inicio de Sesión
+// CUSTOM HOOK: useLogin.js (Cerebro del Login)
 // ==========================================
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { procesarYGuardarNombre } from "../services/alumnoService";
-import { autenticarUsuario, obtenerRutaSegunRol } from "../services/autenticacionService";
-import { useFondoPantalla } from "./useFondoPantalla";
+import { iniciarSesion } from "../services/navegador";
 
-export const useInicioSesion = () => {
+export const useLogin = (esIframe) => { // 👈 1. Recibe si es iframe desde InicioSesion.jsx
   const navigate = useNavigate();
-  const [esVistaPreviaEnIframe, setEsVistaPreviaEnIframe] = useState(false);
-  const [credenciales, setCredenciales] = useState({ identificador: "", password: "" });
+
+  // 1. MEMORIA
+  const [credenciales, setCredenciales] = useState({
+    identificador: "",
+    password: ""
+  });
+  
+  // 3. EFECTO
+  const [cargando, setCargando] = useState(false);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    setEsVistaPreviaEnIframe(window.self !== window.top);
-  }, []);
-
-  useFondoPantalla("body-login", esVistaPreviaEnIframe);
-
+  // 2. ACCIÓN
   const actualizarCampo = (campo) => (e) => {
-    setCredenciales((prev) => ({ ...prev, [campo]: e.target.value }));
-    if (error) setError("");
+    const valor = e.target.value;
+    setCredenciales((prev) => ({ ...prev, [campo]: valor }));
+    if (error) setError(""); 
   };
 
   const manejarComenzar = async () => {
-    const { identificador, password } = credenciales;
-    if (!identificador.trim()) {
-      setError("Por favor, ingresa tu correo o usuario.");
+    // Si no es iframe, exigimos que rellene los campos
+    if (!esIframe && (!credenciales.identificador || !credenciales.password)) {
+      setError("⚠️ Por favor completa todos los campos.");
       return;
     }
 
-    const resultado = await autenticarUsuario(identificador, password, esVistaPreviaEnIframe);
-    if (!resultado.valido) {
-      setError(resultado.error);
-      setCredenciales({ identificador: "", password: "" });
-      return;
-    }
+    try {
+      setCargando(true);
+      setError("");
 
-    procesarYGuardarNombre(resultado.nombreProcesado);
-    navigate(obtenerRutaSegunRol(resultado.rol));
+      // 🚀 2. Enviamos la bandera 'esIframe' a tu iniciarSesion() existente
+      const resultado = await iniciarSesion(
+        credenciales.identificador, 
+        credenciales.password,
+        esIframe
+      );
+
+      if (resultado.valido === false) {
+        setError("❌ Credenciales incorrectas o usuario no encontrado.");
+        setCredenciales({ identificador: "", password: "" });
+        setCargando(false);
+        return;
+      }
+
+      navigate(resultado.rutaDestino || "/inicio");
+
+    } catch (err) {
+      setError("⚠️ Ocurrió un error al intentar iniciar sesión.");
+      setCargando(false);
+    }
   };
 
   return {
-    esVistaPreviaEnIframe,
-    credenciales,
-    error,
-    actualizarCampo,
-    manejarComenzar
+    memoria: {
+      identificador: credenciales.identificador,
+      password: credenciales.password
+    },
+    accion: {
+      alCambiarIdentificador: actualizarCampo("identificador"),
+      alCambiarPassword: actualizarCampo("password"),
+      alHacerClickIngresar: manejarComenzar
+    },
+    efecto: {
+      error: error,
+      cargando: cargando
+    }
   };
 };

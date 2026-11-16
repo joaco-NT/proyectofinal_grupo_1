@@ -1,58 +1,49 @@
 
 // ==========================================
-// CUSTOM HOOK: Lógica y Estado del Panel Admin
+// CUSTOM HOOK: usePanelAdmin.js (Cerebro del Panel Docente)
 // ==========================================
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { obtenerListaAlumnos, limpiarSesionTemporal } from "../services/alumnoService";
-import { useFondoPantalla } from "./useFondoPantalla";
-
-const CONFIG_PANTALLAS = {
-  1: { titulo: "Pantalla 1: Acceso / Registro Temporal", ruta: "/" },
-  2: { titulo: "Pantalla 2: Juego 1 (¡Hora de Comer!)", ruta: "/juego1" },
-  3: { titulo: "Pantalla 3: Juego 2 (El Intruso)", ruta: "/juego2" },
-  4: { titulo: "Pantalla 4: Resumen de Resultados", ruta: "/resultados" }
-};
-
-const MAPA_RUTA_A_PANTALLA = {
-  "/": 1,
-  "/juego1": 2,
-  "/juego2": 3,
-  "/resultados": 4
-};
+import { obtenerListaAlumnos, cerrarSesion } from "../services/navegador";
+import { PANTALLAS_ALUMNO } from "../routes/Rutas";
 
 export const usePanelAdmin = () => {
-  useFondoPantalla("body-admin");
   const navigate = useNavigate();
-
-  const [pantallaActiva, setPantallaActiva] = useState(1);
-  const [mostrarTabla, setMostrarTabla] = useState(true);
-  const [listaAlumnos, setListaAlumnos] = useState([]);
   const iframeRef = useRef(null);
 
+  // 1. MEMORIA
+  const [pantallaActiva, setPantallaActiva] = useState(1);
+  const [listaAlumnos, setListaAlumnos] = useState([]);
+
+  // 3. EFECTO
+  const [mostrarTabla, setMostrarTabla] = useState(true);
+
   useEffect(() => {
-    let montado = true;
     if (mostrarTabla) {
       obtenerListaAlumnos().then((alumnos) => {
-        if (montado) setListaAlumnos(alumnos);
+        setListaAlumnos(alumnos);
       });
     }
-    return () => { montado = false; };
   }, [mostrarTabla]);
 
   useEffect(() => {
-    const manejarMensajeIframe = (event) => {
+    const manejarMensaje = (event) => {
       if (event.data?.tipo === "CAMBIO_RUTA_IFRAME") {
-        const numeroPantalla = MAPA_RUTA_A_PANTALLA[event.data.pathname];
-        if (numeroPantalla) setPantallaActiva(numeroPantalla);
+        const encontrada = PANTALLAS_ALUMNO.find((p) => p.ruta === event.data.pathname);
+        if (encontrada) {
+          setPantallaActiva(encontrada.numero);
+        }
       }
     };
 
-    window.addEventListener("message", manejarMensajeIframe);
-    return () => window.removeEventListener("message", manejarMensajeIframe);
+    window.addEventListener("message", manejarMensaje);
+    return () => window.removeEventListener("message", manejarMensaje);
   }, []);
 
-  const irAlMenuDocente = () => setMostrarTabla(true);
+  // 2. ACCIÓN
+  const irAlMenuDocente = () => {
+    setMostrarTabla(true);
+  };
 
   const seleccionarPantalla = (num) => {
     setPantallaActiva(num);
@@ -60,20 +51,27 @@ export const usePanelAdmin = () => {
   };
 
   const manejarCierreSesion = () => {
-    limpiarSesionTemporal();
+    cerrarSesion();
     navigate("/");
   };
 
-  const infoPantalla = CONFIG_PANTALLAS[pantallaActiva] || CONFIG_PANTALLAS[1];
+  const infoPantalla =
+    PANTALLAS_ALUMNO.find((p) => p.numero === pantallaActiva) || PANTALLAS_ALUMNO[0];
 
   return {
-    mostrarTabla,
-    pantallaActiva,
-    listaAlumnos,
-    iframeRef,
-    infoPantalla,
-    irAlMenuDocente,
-    seleccionarPantalla,
-    manejarCierreSesion
+    memoria: {
+      pantallaActiva: pantallaActiva,
+      listaAlumnos: listaAlumnos,
+      iframeRef: iframeRef,
+      infoPantalla: infoPantalla
+    },
+    accion: {
+      alIrAlMenuDocente: irAlMenuDocente,
+      alSeleccionarPantalla: seleccionarPantalla,
+      alCerrarSesion: manejarCierreSesion
+    },
+    efecto: {
+      mostrarTabla: mostrarTabla
+    }
   };
 };

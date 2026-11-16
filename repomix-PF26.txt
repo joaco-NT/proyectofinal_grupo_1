@@ -1,0 +1,2953 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+public/
+  data/
+    rondasJuego1.json
+    rondasJuego2.json
+    usuarios.json
+  sounds/
+    click.mp3
+    cursor.mp3
+    musicaFondo.mp3
+src/
+  components/
+    Boton.jsx
+    EstructuraAdmin.jsx
+    EstructuraJuego.jsx
+    EstructuraLogin.jsx
+    EstructuraResultados.jsx
+    MusicaFondo.jsx
+  css/
+    EstiloAdmin.css
+    EstiloGlobal.css
+    EstiloJuegos.css
+    EstiloLogin.css
+    EstiloMusica.css
+    EstiloResultados.css
+  data/
+    textosAdmin.json
+    textosJuego1.json
+    textosJuego2.json
+    textosLogin.json
+    textosResultados.json
+  hooks/
+    useEntorno.js
+    useInicioSesion.js
+    useJuego1.js
+    useJuego2.js
+    useMusicaFondo.js
+    usePanelAdmin.js
+    useResultados.js
+    useSonidoGlobal.js
+  pages/
+    InicioSesion.jsx
+    Juego1.jsx
+    Juego2.jsx
+    PanelAdmin.jsx
+    Resultados.jsx
+  routes/
+    Rutas.jsx
+  services/
+    calculos.js
+    navegador.js
+    sonido.js
+  App.jsx
+  main.jsx
+.gitignore
+DIA.md
+eslint.config.js
+index.html
+package.json
+README.md
+vite.config.js
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="src/components/MusicaFondo.jsx">
+// ==========================================
+// COMPONENTE: Música de Fondo (Cascarón Delgado)
+// ==========================================
+import React from "react";
+import { useMusicaFondo } from "../hooks/useMusicaFondo";
+import "../css/EstiloMusica.css";
+
+const MusicaFondo = () => {
+  const { audioRef, reproduciendo, alternarMusica } = useMusicaFondo();
+
+  return (
+    <>
+      <audio
+        ref={audioRef}
+        src="/sounds/musicaFondo.mp3"
+        loop
+        preload="auto"
+        onError={() => console.error("No se pudo cargar el audio")}
+      />
+
+      <button
+        className="boton-musica"
+        onClick={alternarMusica}
+        type="button"
+      >
+        {reproduciendo
+          ? "🔊 Silenciar música"
+          : "🎵 Activar música"}
+      </button>
+    </>
+  );
+};
+
+export default MusicaFondo;
+</file>
+
+<file path="src/css/EstiloMusica.css">
+.boton-musica {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 99999;
+
+  padding: 12px 18px;
+  border: none;
+  border-radius: 30px;
+
+  background: #ffb347;
+  color: #5a3200;
+
+  font-size: 15px;
+  font-weight: bold;
+
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+
+  transition: transform 0.2s ease;
+}
+
+.boton-musica:hover {
+  transform: scale(1.05);
+}
+</file>
+
+<file path="src/data/textosAdmin.json">
+{
+  "Bloque1": {
+    "insigniaDocente": "DOCENTE",
+    "tooltipInsignia": "Volver a la lista de alumnos"
+  },
+  "Bloque2": {
+    "tituloTabla": "Lista Alumno",
+    "columnas": [
+      "Apellido / Nombre",
+      "Juego1: Puntaje",
+      "Juego2: Puntaje",
+      "Total Puntaje"
+    ],
+    "mensajeTablaVacia": "📭 No hay registros de alumnos todavía."
+  },
+  "Bloque3": {
+    "textoBotonCerrar": "Cerrar Sesión 🚪"
+  }
+}
+</file>
+
+<file path="src/data/textosJuego1.json">
+{
+  "Bloque1": {
+    "titulo": "Juego 1: ¡Hora de Comer!",
+    "pregunta": "Elige la comida correcta:"
+  },
+  "Bloque2": {
+    "tituloTerminado": "🎉 ¡Juego terminado!",
+    "preguntaTerminado": "¿Listo para el siguiente reto?",
+    "textoBotonSiguiente": "Siguiente 🚀"
+  }
+}
+</file>
+
+<file path="src/data/textosJuego2.json">
+{
+  "Bloque1": {
+    "titulo": "Juego 2: El Intruso de la Granja",
+    "pregunta": "Haz clic en el elemento que NO corresponde:"
+  },
+  "Bloque2": {
+    "tituloTerminado": "🎉 ¡Juego terminado!",
+    "preguntaTerminado": "¿Listo para el siguiente reto?",
+    "textoBotonSiguiente": "Ver Resultados 🏆"
+  }
+}
+</file>
+
+<file path="src/data/textosLogin.json">
+{
+  "Bloque1": {
+    "titulo": "🔐 Iniciar Sesión",
+    "subtitulo": "Plataforma Educativa - Acceso de Usuarios"
+  },
+  "Bloque2": {
+    "etiquetaUsuario": "Correo o usuario",
+    "etiquetaPassword": "Contraseña"
+  },
+  "Bloque3": {
+    "textoBoton": "Ingresar"
+  }
+}
+</file>
+
+<file path="src/data/textosResultados.json">
+{
+  "Bloque1": {
+    "titulo": "🏆 ¡Aventura completada!",
+    "subtitulo": "Tus resultados",
+    "etiquetaJuego1": "🐮 Juego 1",
+    "etiquetaJuego2": "🦁 Juego 2",
+    "etiquetaTotal": "⭐ Total"
+  },
+  "Bloque2": {
+    "textoBotonReiniciar": "¡Jugar de nuevo! 🚀"
+  },
+  "Bloque3": {
+    "tituloReiniciando": "🔄 Reiniciando...",
+    "mensajeReiniciando": "Volviendo al inicio de la granja..."
+  }
+}
+</file>
+
+<file path="src/hooks/useEntorno.js">
+// ==========================================
+// CUSTOM HOOK: useEntorno.js (Entorno Global e Iframe)
+// ==========================================
+import { useState, useEffect } from "react";
+
+export const useEntorno = (claseBody = "body-login") => {
+  const [esIframe] = useState(() => {
+    return typeof window !== "undefined" && window.self !== window.top;
+  });
+
+  useEffect(() => {
+    if (!esIframe && claseBody) {
+      document.body.className = claseBody;
+    }
+
+    return () => {
+      document.body.className = "";
+    };
+  }, [esIframe, claseBody]);
+
+  return { esIframe };
+};
+</file>
+
+<file path="src/hooks/useJuego1.js">
+// ==========================================
+// CUSTOM HOOK: useJuego1.js (Cerebro del Juego 1)
+// ==========================================
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { cargarRondasJuego, guardarPuntajeJuego } from "../services/navegador";
+import { evaluarRespuesta } from "../services/calculos";
+
+export const useJuego1 = () => {
+  const navigate = useNavigate();
+
+  // 1. MEMORIA
+  const [rondas, setRondas] = useState([]);
+  const [indiceRonda, setIndiceRonda] = useState(0);
+  const [puntaje, setPuntaje] = useState(0);
+
+  // 3. EFECTO
+  const [retroalimentacion, setRetroalimentacion] = useState({ mensaje: "", claseCSS: "" });
+  const [juegoTerminado, setJuegoTerminado] = useState(false);
+
+  useEffect(() => {
+    let montado = true;
+    cargarRondasJuego("/data/rondasJuego1.json").then((datos) => {
+      if (montado) {
+        setRondas(datos);
+        setIndiceRonda(0);
+        setPuntaje(0);
+        setJuegoTerminado(false);
+        setRetroalimentacion({ mensaje: "", claseCSS: "" });
+      }
+    });
+    return () => {
+      montado = false;
+    };
+  }, []);
+
+  const rondaActual = rondas.length > 0 ? rondas[indiceRonda] : null;
+
+  // 2. ACCIÓN
+  const manejarRespuesta = (opcionTexto) => {
+    if (retroalimentacion.mensaje !== "") return;
+
+    const resultado = evaluarRespuesta(opcionTexto, rondaActual);
+    const nuevoPuntaje = puntaje + resultado.puntosGanados;
+    setPuntaje(nuevoPuntaje);
+
+    setRetroalimentacion({
+      mensaje: resultado.esCorrecta
+        ? "🎉 Correcto. ¡El animal comió!"
+        : "❌ Incorrecto. ¡Esa no es su comida!",
+      claseCSS: resultado.esCorrecta
+        ? "juego1__mensaje--correcto"
+        : "juego1__mensaje--incorrecto"
+    });
+
+    setTimeout(() => {
+      const siguienteIndice = indiceRonda + 1;
+      if (siguienteIndice < rondas.length) {
+        setIndiceRonda(siguienteIndice);
+        setRetroalimentacion({ mensaje: "", claseCSS: "" });
+      } else {
+        setJuegoTerminado(true);
+        guardarPuntajeJuego(1, nuevoPuntaje);
+        setRetroalimentacion({ mensaje: "", claseCSS: "" });
+      }
+    }, 1200);
+  };
+
+  const manejarSiguienteJuego = () => {
+    navigate("/juego2");
+  };
+
+  return {
+    memoria: {
+      claseBaseEstilo: "juego1",
+      emojiUnico: rondaActual?.emoji || "⏳",
+      textoAnimal: rondaActual?.animal || "Cargando juego...",
+      opciones: rondaActual?.opciones || [],
+      puntajeFinal: puntaje
+    },
+    accion: {
+      alElegirOpcion: manejarRespuesta,
+      alHacerClickSiguiente: manejarSiguienteJuego
+    },
+    efecto: {
+      juegoTerminado: juegoTerminado,
+      estaCargando: rondaActual === null,
+      retroalimentacion: retroalimentacion
+    }
+  };
+};
+</file>
+
+<file path="src/hooks/useJuego2.js">
+// ==========================================
+// CUSTOM HOOK: useJuego2.js (Cerebro del Juego 2)
+// ==========================================
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { cargarRondasJuego, guardarPuntajeJuego } from "../services/navegador";
+import { evaluarRespuesta } from "../services/calculos";
+
+export const useJuego2 = () => {
+  const navigate = useNavigate();
+
+  // 1. MEMORIA
+  const [rondas, setRondas] = useState([]);
+  const [indiceRonda, setIndiceRonda] = useState(0);
+  const [puntaje, setPuntaje] = useState(0);
+
+  // 3. EFECTO
+  const [retroalimentacion, setRetroalimentacion] = useState({ mensaje: "", claseCSS: "" });
+  const [juegoTerminado, setJuegoTerminado] = useState(false);
+
+  useEffect(() => {
+    let montado = true;
+    cargarRondasJuego("/data/rondasJuego2.json").then((datos) => {
+      if (montado) {
+        setRondas(datos);
+        setIndiceRonda(0);
+        setPuntaje(0);
+        setJuegoTerminado(false);
+        setRetroalimentacion({ mensaje: "", claseCSS: "" });
+      }
+    });
+    return () => {
+      montado = false;
+    };
+  }, []);
+
+  const rondaActual = rondas.length > 0 ? rondas[indiceRonda] : null;
+
+  // 2. ACCIÓN
+  const manejarRespuesta = (opcionTexto) => {
+    if (retroalimentacion.mensaje !== "") return;
+
+    const resultado = evaluarRespuesta(opcionTexto, rondaActual);
+    const nuevoPuntaje = puntaje + resultado.puntosGanados;
+    setPuntaje(nuevoPuntaje);
+
+    setRetroalimentacion({
+      mensaje: resultado.esCorrecta
+        ? "🎉 Correcto. ¡Encontraste al intruso!"
+        : "❌ Incorrecto. ¡Ese sí corresponde!",
+      claseCSS: resultado.esCorrecta
+        ? "juego2__mensaje--correcto"
+        : "juego2__mensaje--incorrecto"
+    });
+
+    setTimeout(() => {
+      const siguienteIndice = indiceRonda + 1;
+      if (siguienteIndice < rondas.length) {
+        setIndiceRonda(siguienteIndice);
+        setRetroalimentacion({ mensaje: "", claseCSS: "" });
+      } else {
+        setJuegoTerminado(true);
+        guardarPuntajeJuego(2, nuevoPuntaje);
+        setRetroalimentacion({ mensaje: "", claseCSS: "" });
+      }
+    }, 1200);
+  };
+
+  const manejarSiguienteJuego = () => {
+    navigate("/resultados");
+  };
+
+  return {
+    memoria: {
+      claseBaseEstilo: "juego2",
+      emojiUnico: rondas.length > 0 ? "🕵️‍♂️" : "⏳",
+      textoAnimal: rondas.length > 0 ? "¡Encuentra al intruso!" : "Cargando juego...",
+      opciones: rondaActual?.opciones || [],
+      puntajeFinal: puntaje
+    },
+    accion: {
+      alElegirOpcion: manejarRespuesta,
+      alHacerClickSiguiente: manejarSiguienteJuego
+    },
+    efecto: {
+      juegoTerminado: juegoTerminado,
+      estaCargando: rondaActual === null,
+      retroalimentacion: retroalimentacion
+    }
+  };
+};
+</file>
+
+<file path="src/hooks/useMusicaFondo.js">
+// ==========================================
+// CUSTOM HOOK: Lógica y Estado de la Música de Fondo
+// ==========================================
+import { useState, useEffect, useRef } from "react";
+
+export const useMusicaFondo = () => {
+  const audioRef = useRef(null);
+  const [reproduciendo, setReproduciendo] = useState(false);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = 0.10; // Volumen inicial al 10%
+    }
+  }, []);
+
+  const alternarMusica = async () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (audio.paused) {
+      try {
+        await audio.play();
+        setReproduciendo(true);
+        console.log("Música reproduciéndose");
+      } catch (error) {
+        console.error("Error al reproducir el audio:", error);
+        setReproduciendo(false);
+      }
+    } else {
+      audio.pause();
+      setReproduciendo(false);
+    }
+  };
+
+  return {
+    audioRef,
+    reproduciendo,
+    alternarMusica
+  };
+};
+</file>
+
+<file path="src/hooks/useResultados.js">
+// ==========================================
+// CUSTOM HOOK: useResultados.js (Cerebro de Resultados)
+// ==========================================
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { obtenerResumenPartida, reiniciarPartida } from "../services/navegador";
+import { obtenerMensajeFelicitacion } from "../services/calculos";
+
+export const useResultados = () => {
+  const navigate = useNavigate();
+
+  // 1. MEMORIA
+  const [resumen, setResumen] = useState({
+    nombreJugador: "",
+    puntajeJuego1: 0,
+    puntajeJuego2: 0,
+    puntajeTotal: 0
+  });
+
+  // 3. EFECTO
+  const [estaReiniciando, setEstaReiniciando] = useState(false);
+
+  useEffect(() => {
+    const datosPartida = obtenerResumenPartida();
+    setResumen(datosPartida);
+  }, []);
+
+  // 2. ACCIÓN
+  const alHacerClickReiniciar = () => {
+    setEstaReiniciando(true);
+    reiniciarPartida();
+
+    setTimeout(() => {
+      navigate("/");
+    }, 1000);
+  };
+
+  const mensajeFelicitacion = obtenerMensajeFelicitacion(
+    resumen.puntajeTotal,
+    resumen.nombreJugador
+  );
+
+  return {
+    memoria: {
+      nombreJugador: resumen.nombreJugador,
+      puntajeJuego1: resumen.puntajeJuego1,
+      puntajeJuego2: resumen.puntajeJuego2,
+      puntajeTotal: resumen.puntajeTotal,
+      mensajeFelicitacion: mensajeFelicitacion
+    },
+    accion: {
+      alHacerClickReiniciar: alHacerClickReiniciar
+    },
+    efecto: {
+      estaReiniciando: estaReiniciando
+    }
+  };
+};
+</file>
+
+<file path="src/hooks/useSonidoGlobal.js">
+// ==========================================
+// CUSTOM HOOK: Control de sonidos globales
+// ==========================================
+import { useEffect } from "react";
+import { reproducirSonidoClick } from "../services/sonido";
+
+export const useSonidoGlobal = () => {
+  useEffect(() => {
+    document.addEventListener("click", reproducirSonidoClick);
+
+    return () => {
+      document.removeEventListener("click", reproducirSonidoClick);
+    };
+  }, []);
+};
+</file>
+
+<file path="src/pages/Juego1.jsx">
+// ==========================================
+// PÁGINA: Juego 1 (Cascarón Delgado)
+// ==========================================
+import React from "react";
+import ContenidoPrincipal from "../components/EstructuraJuego";
+import { useJuego1 } from "../hooks/useJuego1";
+import { useEntorno } from "../hooks/useEntorno";
+import miJsonJuego1 from "../data/textosJuego1.json";
+import "../css/EstiloJuegos.css";
+
+const Juego1 = () => {
+  const { esIframe } = useEntorno("body-juego1");
+  const dinamicos = useJuego1();
+
+  const paqueteMaestro = {
+    ...miJsonJuego1,
+    dinamicos
+  };
+
+  return (
+    <ContenidoPrincipal 
+      fuenteDatos={paqueteMaestro} 
+      esIframe={esIframe} 
+    />
+  );
+};
+
+export default Juego1;
+</file>
+
+<file path="src/pages/Juego2.jsx">
+// ==========================================
+// PÁGINA: Juego 2 (Cascarón Delgado)
+// ==========================================
+import React from "react";
+import ContenidoPrincipal from "../components/EstructuraJuego";
+import { useJuego2 } from "../hooks/useJuego2";
+import { useEntorno } from "../hooks/useEntorno";
+import miJsonJuego2 from "../data/textosJuego2.json";
+import "../css/EstiloJuegos.css";
+
+const Juego2 = () => {
+  const { esIframe } = useEntorno("body-juego2");
+  const dinamicos = useJuego2();
+
+  const paqueteMaestro = {
+    ...miJsonJuego2,
+    dinamicos
+  };
+
+  return (
+    <ContenidoPrincipal 
+      fuenteDatos={paqueteMaestro} 
+      esIframe={esIframe} 
+    />
+  );
+};
+
+export default Juego2;
+</file>
+
+<file path="src/pages/Resultados.jsx">
+// ==========================================
+// PÁGINA: Resultados (Cascarón Delgado)
+// ==========================================
+import React from "react";
+import ContenidoPrincipal from "../components/EstructuraResultados";
+import { useResultados } from "../hooks/useResultados";
+import { useEntorno } from "../hooks/useEntorno";
+import miJsonResultados from "../data/textosResultados.json";
+import "../css/EstiloResultados.css";
+
+const Resultados = () => {
+  const { esIframe } = useEntorno("body-resultados");
+  const dinamicos = useResultados();
+
+  const paqueteMaestro = {
+    ...miJsonResultados,
+    dinamicos
+  };
+
+  return (
+    <ContenidoPrincipal 
+      fuenteDatos={paqueteMaestro} 
+      esIframe={esIframe} 
+    />
+  );
+};
+
+export default Resultados;
+</file>
+
+<file path="src/services/calculos.js">
+// ==========================================
+// LÓGICA PURA Y CÁLCULOS (Nivel escolar estricto, sin operadores avanzados)
+// ==========================================
+
+export const filtrarAlumnos = (usuarios) => {
+  return usuarios.filter((usuario) => {
+    const esAlumnoRol = usuario.rol === "alumno";
+    const esAlumnoTipo = usuario.tipo === "alumno";
+    return esAlumnoRol || esAlumnoTipo;
+  });
+};
+
+export const buscarUsuario = (usuarios, identificador) => {
+  const textoLimpio = identificador.trim().toLowerCase();
+  
+  return usuarios.find((usuario) => {
+    let coincideEmail = false;
+    if (usuario.email !== undefined) {
+      coincideEmail = usuario.email.trim().toLowerCase() === textoLimpio;
+    }
+
+    let coincideUsuario = false;
+    if (usuario.usuario !== undefined) {
+      coincideUsuario = usuario.usuario.trim().toLowerCase() === textoLimpio;
+    }
+
+    let coincideNombre = false;
+    if (usuario.nombre !== undefined) {
+      coincideNombre = usuario.nombre.trim().toLowerCase() === textoLimpio;
+    }
+
+    return coincideEmail || coincideUsuario || coincideNombre;
+  });
+};
+
+export const validarAcceso = (usuarios, identificador, password, esIframe) => {
+  const textoVacio = !identificador || identificador.trim() === "";
+  if (textoVacio === true) {
+    return { valido: false, error: "Escribe tu usuario o correo." };
+  }
+
+  let usuarioEncontrado = buscarUsuario(usuarios, identificador);
+
+  let esUsuarioNulo = false;
+  if (usuarioEncontrado === undefined) {
+    esUsuarioNulo = true;
+  }
+
+  if (esUsuarioNulo === true && esIframe === true) {
+    usuarioEncontrado = {
+      nombre: identificador.trim(),
+      rol: "alumno",
+      juego1: 0,
+      juego2: 0,
+      esTemporal: true
+    };
+  }
+
+  let sigueNulo = false;
+  if (usuarioEncontrado === undefined) {
+    sigueNulo = true;
+  }
+
+  if (sigueNulo === true) {
+    return { valido: false, error: "Usuario no encontrado." };
+  }
+
+  let esAdmin = false;
+  if (usuarioEncontrado.rol === "admin") {
+    esAdmin = true;
+  }
+
+  if (esAdmin === true) {
+    let passwordRegistrada = "";
+    if (usuarioEncontrado.password !== undefined) {
+      passwordRegistrada = String(usuarioEncontrado.password);
+    } else if (usuarioEncontrado.contrasena !== undefined) {
+      passwordRegistrada = String(usuarioEncontrado.contrasena);
+    }
+
+    const passwordEscrita = String(password);
+    if (passwordRegistrada !== passwordEscrita) {
+      return { valido: false, error: "Contraseña incorrecta." };
+    }
+  }
+
+  let rutaDestino = "/juego1";
+  if (esAdmin === true) {
+    rutaDestino = "/admin";
+  }
+
+  return {
+    valido: true,
+    usuario: usuarioEncontrado,
+    destino: rutaDestino
+  };
+};
+
+export const calcularPuntajeTotal = (puntajeJuego1, puntajeJuego2) => {
+  const numero1 = Number(puntajeJuego1);
+  const numero2 = Number(puntajeJuego2);
+  return numero1 + numero2;
+};
+
+export const obtenerMensajeFelicitacion = (puntajeTotal, nombreJugador) => {
+  const mensajesPorRango = [
+    { minimo: 80, texto: "¡Excelente trabajo, " + nombreJugador + "! Dominas los conocimientos." },
+    { minimo: 50, texto: "¡Buen trabajo, " + nombreJugador + "! Sigue practicando." },
+    { minimo: 0,  texto: "¡A seguir intentándolo, " + nombreJugador + "!" }
+  ];
+
+  let mensajeElegido = "¡A seguir intentándolo, " + nombreJugador + "!";
+
+  mensajesPorRango.forEach((rango) => {
+    if (puntajeTotal >= rango.minimo) {
+      if (mensajeElegido.includes("A seguir")) {
+        mensajeElegido = rango.texto;
+      }
+    }
+  });
+
+  return mensajeElegido;
+};
+
+export const mezclarOpciones = (opcionesOriginales) => {
+  const copiaOpciones = opcionesOriginales.map((opcion) => {
+    return opcion;
+  });
+
+  return copiaOpciones.sort(() => {
+    return Math.random() - 0.5;
+  });
+};
+
+export const evaluarRespuesta = (opcionElegida, rondaActual) => {
+  const esCorrecta = opcionElegida === rondaActual.correcta;
+  let puntos = 0;
+  if (esCorrecta === true) {
+    puntos = 10;
+  }
+
+  return {
+    esCorrecta: esCorrecta,
+    puntosGanados: puntos
+  };
+};
+</file>
+
+<file path="src/services/navegador.js">
+// ==========================================
+// INFRAESTRUCTURA Y NAVEGADOR (Con operador de propagación ... solo aquí)
+// ==========================================
+import axios from "axios";
+import { 
+  validarAcceso, 
+  filtrarAlumnos, 
+  calcularPuntajeTotal, 
+  mezclarOpciones 
+} from "./calculos";
+
+export const obtenerUsuariosOficiales = async () => {
+  const datosGuardados = sessionStorage.getItem("usuarios_temp");
+  let tieneDatos = false;
+  if (datosGuardados !== null) {
+    tieneDatos = true;
+  }
+
+  if (tieneDatos === true) {
+    return JSON.parse(datosGuardados);
+  }
+
+  try {
+    const respuesta = await axios.get("/data/usuarios.json");
+    const listaUsuarios = respuesta.data;
+
+    const usuariosNormalizados = listaUsuarios.map((usuario) => {
+      let j1 = usuario.juego1;
+      if (j1 === undefined) {
+        j1 = 0;
+      }
+
+      let j2 = usuario.juego2;
+      if (j2 === undefined) {
+        j2 = 0;
+      }
+
+      // Usamos el operador de propagación (...) aquí
+      return {
+        ...usuario,
+        juego1: j1,
+        juego2: j2
+      };
+    });
+
+    sessionStorage.setItem("usuarios_temp", JSON.stringify(usuariosNormalizados));
+    return usuariosNormalizados;
+  } catch (errorDeCarga) {
+    return [];
+  }
+};
+
+export const iniciarSesion = async (identificador, password, esIframe) => {
+  const listaUsuarios = await obtenerUsuariosOficiales();
+  const resultadoValidacion = validarAcceso(listaUsuarios, identificador, password, esIframe);
+
+  let esValido = resultadoValidacion.valido;
+  if (esValido === false) {
+    return resultadoValidacion;
+  }
+
+  let esTemporal = resultadoValidacion.usuario.esTemporal;
+  if (esTemporal === true) {
+    listaUsuarios.push(resultadoValidacion.usuario);
+    sessionStorage.setItem("usuarios_temp", JSON.stringify(listaUsuarios));
+  }
+
+  sessionStorage.setItem("nombreJugador", resultadoValidacion.usuario.nombre);
+
+  let rolUsuario = resultadoValidacion.usuario.rol;
+  if (rolUsuario === undefined) {
+    rolUsuario = resultadoValidacion.usuario.tipo;
+  }
+
+  return {
+    valido: true,
+    rol: rolUsuario,
+    nombreProcesado: resultadoValidacion.usuario.nombre,
+    rutaDestino: resultadoValidacion.destino
+  };
+};
+
+export const guardarPuntajeJuego = async (numeroJuego, puntosNuevos) => {
+  let puntosFinales = puntosNuevos;
+  if (puntosFinales > 50) {
+    puntosFinales = 50;
+  }
+
+  sessionStorage.setItem("puntajeJuego" + numeroJuego, puntosFinales);
+
+  const nombreActivo = sessionStorage.getItem("nombreJugador");
+  const listaUsuarios = await obtenerUsuariosOficiales();
+
+  const usuariosActualizados = listaUsuarios.map((usuario) => {
+    const coincideNombre = usuario.nombre === nombreActivo;
+    const coincideAlias = usuario.usuario === nombreActivo;
+
+    if (coincideNombre === true || coincideAlias === true) {
+      let nuevoJuego1 = usuario.juego1;
+      let nuevoJuego2 = usuario.juego2;
+
+      if (numeroJuego === 1) {
+        nuevoJuego1 = puntosFinales;
+      }
+      if (numeroJuego === 2) {
+        nuevoJuego2 = puntosFinales;
+      }
+
+      // Usamos el operador de propagación (...) para actualizar el objeto
+      return {
+        ...usuario,
+        juego1: nuevoJuego1,
+        juego2: nuevoJuego2
+      };
+    }
+
+    return usuario;
+  });
+
+  sessionStorage.setItem("usuarios_temp", JSON.stringify(usuariosActualizados));
+};
+
+export const obtenerListaAlumnos = async () => {
+  const listaUsuarios = await obtenerUsuariosOficiales();
+  return filtrarAlumnos(listaUsuarios);
+};
+
+export const obtenerResumenPartida = () => {
+  const valorJ1 = sessionStorage.getItem("puntajeJuego1");
+  let j1 = Number(valorJ1);
+  if (isNaN(j1)) {
+    j1 = 0;
+  }
+
+  const valorJ2 = sessionStorage.getItem("puntajeJuego2");
+  let j2 = Number(valorJ2);
+  if (isNaN(j2)) {
+    j2 = 0;
+  }
+
+  let nombreJugadorGuardado = sessionStorage.getItem("nombreJugador");
+  if (nombreJugadorGuardado === null) {
+    nombreJugadorGuardado = "Estudiante";
+  }
+
+  return {
+    nombreJugador: nombreJugadorGuardado,
+    puntajeJuego1: j1,
+    puntajeJuego2: j2,
+    puntajeTotal: calcularPuntajeTotal(j1, j2)
+  };
+};
+
+export const cargarRondasJuego = async (rutaJson) => {
+  try {
+    const respuesta = await fetch(rutaJson);
+    const rondasOriginales = await respuesta.json();
+
+    return rondasOriginales.map((ronda) => {
+      const opcionesMezcladas = mezclarOpciones(ronda.opciones);
+      
+      // Usamos el operador de propagación (...) para combinar las opciones mezcladas
+      return {
+        ...ronda,
+        opciones: opcionesMezcladas
+      };
+    });
+  } catch (errorDeRondas) {
+    return [];
+  }
+};
+
+export const reiniciarPartida = () => {
+  sessionStorage.removeItem("puntajeJuego1");
+  sessionStorage.removeItem("puntajeJuego2");
+};
+
+export const cerrarSesion = () => {
+  const datosGuardados = sessionStorage.getItem("usuarios_temp");
+  let tieneDatos = false;
+  if (datosGuardados !== null) {
+    tieneDatos = true;
+  }
+
+  if (tieneDatos === true) {
+    const listaCompleta = JSON.parse(datosGuardados);
+    const soloOficiales = listaCompleta.filter((usuario) => {
+      let esTemporal = usuario.esTemporal;
+      if (esTemporal === undefined) {
+        esTemporal = false;
+      }
+      return esTemporal === false;
+    });
+    sessionStorage.setItem("usuarios_temp", JSON.stringify(soloOficiales));
+  }
+
+  sessionStorage.removeItem("nombreJugador");
+  sessionStorage.removeItem("puntajeJuego1");
+  sessionStorage.removeItem("puntajeJuego2");
+};
+</file>
+
+<file path="src/services/sonido.js">
+// ==========================================
+// SERVICIO: Lógica y evaluación de sonidos (Universal para todos los botones)
+// ==========================================
+
+// Instancia única global para el sonido del cursor (con control anti-saturación)
+const audioCursoGlobal = new Audio("/sounds/cursor.mp3");
+audioCursoGlobal.volume = 0.4;
+
+// Instancia única global para el clic (evita que se corte al cambiar de ruta o navegar)
+const audioClickGlobal = new Audio("/sounds/click.mp3");
+audioClickGlobal.volume = 1.0;
+
+let ultimoTiempoAudio = 0;
+
+// ==========================================
+// 1. Sonido de Cursor (Hover) para cualquier botón
+// ==========================================
+export const reproducirSonidoCurso = () => {
+  const tiempoActual = Date.now();
+
+  // Si pasaron menos de 150 milisegundos, ignora para evitar ruidos raros al mover rápido el mouse
+  if (tiempoActual - ultimoTiempoAudio < 150) {
+    return;
+  }
+
+  ultimoTiempoAudio = tiempoActual;
+  audioCursoGlobal.pause();         
+  audioCursoGlobal.currentTime = 0; 
+  audioCursoGlobal.play().catch(() => {});
+};
+
+// ==========================================
+// 2. Sonido de Clic para cualquier botón
+// ==========================================
+export const evaluarYReproducirSonido = () => {
+  // Reproduce al instante en cualquier botón sin restricciones de texto
+  audioClickGlobal.pause();
+  audioClickGlobal.currentTime = 0;
+  audioClickGlobal.play().catch(() => {
+    // Previene errores si el navegador restringe la reproducción automática
+  });
+};
+</file>
+
+<file path="public/data/rondasJuego1.json">
+[
+  { "id": 1, "animal": "Vaca", "emoji": "🐄", "opciones": ["Pasto", "Carne", "Banana"], "correcta": "Pasto" },
+  { "id": 2, "animal": "Gallina", "emoji": "🐔", "opciones": ["Maíz", "Pasto", "Pescado"], "correcta": "Maíz" },
+  { "id": 3, "animal": "Chancho", "emoji": "🐷", "opciones": ["Todo", "Solo Pasto", "Solo Carne"], "correcta": "Todo" },
+  { "id": 4, "animal": "Oveja", "emoji": "🐑", "opciones": ["Pasto", "Hamburguesa", "Pizza"], "correcta": "Pasto" },
+  { "id": 5, "animal": "Caballo", "emoji": "🐎", "opciones": ["Pasto y Zanahoria", "Pollo", "Helado"], "correcta": "Pasto y Zanahoria" }
+]
+</file>
+
+<file path="public/data/rondasJuego2.json">
+[
+  { "id": 1, "opciones": ["🐶 Perro", "🐱 Gato", "🦁 León"], "correcta": "🦁 León" },
+  { "id": 2, "opciones": ["🐮 Vaca", "🐑 Oveja", "🐊 Cocodrilo"], "correcta": "🐊 Cocodrilo" },
+  { "id": 3, "opciones": ["🐔 Gallina", "🐷 Chancho", "🐘 Elefante"], "correcta": "🐘 Elefante" },
+  { "id": 4, "opciones": ["🐎 Caballo", "🐮 Vaca", "🦈 Tiburón"], "correcta": "🦈 Tiburón" },
+  { "id": 5, "opciones": ["🐑 Oveja", "🐶 Perro", "🐧 Pingüino"], "correcta": "🐧 Pingüino" }
+]
+</file>
+
+<file path="public/data/usuarios.json">
+[
+  {
+    "id": 1,
+    "email": "admin@granja.com",
+    "password": "123",
+    "rol": "admin",
+    "nombre": "Administrador"
+  },
+  {
+    "id": 2,
+    "email": "JuanPerez@alumno.com",
+    "password": "123",
+    "rol": "alumno",
+    "nombre": "Juan Perez"
+  }
+]
+</file>
+
+<file path="src/components/Boton.jsx">
+// ==========================================
+// COMPONENTE: Botón reutilizable (Con sonidos globales automáticos)
+// ==========================================
+import React from "react";
+import { evaluarYReproducirSonido, reproducirSonidoCurso } from "../services/sonido";
+
+export const Boton = ({ contenido, bloqueado, accion, estilo, alPasarCursor, title }) => {
+  const manejarClick = (evento) => {
+    evaluarYReproducirSonido(); // Reproduce el sonido de clic global
+
+    if (accion !== undefined) {
+      accion(evento);
+    }
+  };
+
+  const manejarMouseEnter = (evento) => {
+    reproducirSonidoCurso(); // 👈 Reproduce el sonido de cursor automáticamente en cualquier botón
+
+    if (alPasarCursor !== undefined) {
+      alPasarCursor(evento);
+    }
+  };
+
+  return (
+    <button 
+      onClick={manejarClick}
+      onMouseEnter={manejarMouseEnter}
+      disabled={bloqueado}
+      className={estilo}
+      title={title}
+    >
+      {contenido}
+    </button>
+  );
+};
+
+export default Boton;
+</file>
+
+<file path="src/components/EstructuraAdmin.jsx">
+// ==========================================
+// PLANTILLA: PANEL ADMIN / DOCENTE
+// Arquitectura: Abuelo ➔ Macros ➔ Micros (Cero estilos en línea)
+// ==========================================
+import React from "react";
+import Boton from "./Boton";
+import { evaluarYReproducirSonido, reproducirSonidoCurso } from "../services/sonido";
+import { calcularPuntajeTotal } from "../services/calculos";
+import { PANTALLAS_ALUMNO } from "../routes/Rutas";
+
+// ------------------------------------------
+// 1. EL ABUELO (Contenedor Raíz)
+// ------------------------------------------
+const ContenidoPrincipal = ({ fuenteDatos = {}, esIframe = false }) => {
+  return (
+    <MacroEstructura datosCompartidos={fuenteDatos} esIframe={esIframe} />
+  );
+};
+
+// ------------------------------------------
+// 2. LOS MACROS (Organizadores de Layout)
+// ------------------------------------------
+const MacroEstructura = ({ datosCompartidos }) => {
+  return (
+    <main className="admin-contenedor fade-in">
+      <MacroHeader datos={datosCompartidos} />
+      <MacroSection datos={datosCompartidos} />
+      <MacroFooter datos={datosCompartidos} />
+    </main>
+  );
+};
+
+const MacroHeader = ({ datos }) => (
+  <header className="admin-header">
+    <MicroInsigniaDocente paquete={datos} />
+    <MicroTabsPantallas paquete={datos} />
+  </header>
+);
+
+const MacroSection = ({ datos }) => {
+  const mostrarTabla = datos?.dinamicos?.efecto?.mostrarTabla ?? true;
+
+  return (
+    <section className="admin-seccion-lista">
+      {mostrarTabla ? (
+        <MicroTablaAlumnos paquete={datos} />
+      ) : (
+        <MicroVistaPreviaIframe paquete={datos} />
+      )}
+    </section>
+  );
+};
+
+const MacroFooter = ({ datos }) => (
+  <footer className="admin-footer">
+    <MicroBotonCerrar paquete={datos} />
+  </footer>
+);
+
+// ------------------------------------------
+// 3. LOS MICROS (Átomos / Componentes Visuales Finales)
+// ------------------------------------------
+const MicroInsigniaDocente = ({ paquete }) => {
+  const { insigniaDocente, tooltipInsignia } = paquete?.Bloque1 || {};
+  const alIrAlMenuDocente = paquete?.dinamicos?.accion?.alIrAlMenuDocente;
+
+  return (
+    <div
+      className="admin-badge"
+      onClick={() => {
+        evaluarYReproducirSonido();
+        if (alIrAlMenuDocente) alIrAlMenuDocente();
+      }}
+      onMouseEnter={() => reproducirSonidoCurso()}
+      title={tooltipInsignia}
+    >
+      {insigniaDocente}
+    </div>
+  );
+};
+
+const MicroTabsPantallas = ({ paquete }) => {
+  const mostrarTabla = paquete?.dinamicos?.efecto?.mostrarTabla ?? true;
+  const pantallaActiva = paquete?.dinamicos?.memoria?.pantallaActiva || 1;
+  const alSeleccionarPantalla = paquete?.dinamicos?.accion?.alSeleccionarPantalla;
+
+  return (
+    <nav className="admin-tabs">
+      {PANTALLAS_ALUMNO.map((item) => {
+        const esActivo = !mostrarTabla && pantallaActiva === item.numero;
+        return (
+          <Boton
+            key={item.numero}
+            contenido={item.titulo}
+            bloqueado={false}
+            accion={() => {
+              if (alSeleccionarPantalla) alSeleccionarPantalla(item.numero);
+            }}
+            estilo={`admin-tab ${esActivo ? "admin-tab--activo" : ""}`}
+          />
+        );
+      })}
+    </nav>
+  );
+};
+
+const MicroTablaAlumnos = ({ paquete }) => {
+  const { tituloTabla, columnas, mensajeTablaVacia } = paquete?.Bloque2 || {};
+  const listaAlumnos = paquete?.dinamicos?.memoria?.listaAlumnos || [];
+
+  return (
+    <>
+      <h2 className="admin-titulo-lista">{tituloTabla}</h2>
+      <div className="admin-tabla-wrapper">
+        <table className="admin-tabla">
+          <thead>
+            <tr>
+              {columnas?.map((columnaTexto, indice) => (
+                <th key={indice}>{columnaTexto}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {listaAlumnos.length === 0 ? (
+              <tr>
+                <td colSpan="4" className="admin-tabla-vacia">
+                  {mensajeTablaVacia}
+                </td>
+              </tr>
+            ) : (
+              listaAlumnos.map((alumno) => {
+                const j1 = alumno.juego1 ?? 0;
+                const j2 = alumno.juego2 ?? 0;
+                const total = calcularPuntajeTotal(j1, j2);
+
+                return (
+                  <tr key={alumno.id}>
+                    <td>{alumno.nombre}</td>
+                    <td>{j1} pts</td>
+                    <td>{j2} pts</td>
+                    <td><strong>{total} pts</strong></td>
+                  </tr>
+                );
+              })
+            )}
+          </tbody>
+        </table>
+      </div>
+    </>
+  );
+};
+
+const MicroVistaPreviaIframe = ({ paquete }) => {
+  const iframeRef = paquete?.dinamicos?.memoria?.iframeRef;
+  const infoPantalla = paquete?.dinamicos?.memoria?.infoPantalla || {};
+
+  return (
+    <div className="admin-iframe-container">
+      <div className="admin-iframe-wrapper-box">
+        <iframe
+          ref={iframeRef}
+          src={infoPantalla?.ruta}
+          title={infoPantalla?.titulo}
+          allow="autoplay"
+          className="admin-iframe-preview"
+        />
+      </div>
+    </div>
+  );
+};
+
+const MicroBotonCerrar = ({ paquete }) => {
+  const { textoBotonCerrar } = paquete?.Bloque3 || {};
+  const alCerrarSesion = paquete?.dinamicos?.accion?.alCerrarSesion;
+
+  return (
+    <Boton
+      contenido={textoBotonCerrar}
+      bloqueado={false}
+      accion={alCerrarSesion}
+      estilo="admin-boton-cerrar"
+    />
+  );
+};
+
+export default ContenidoPrincipal;
+</file>
+
+<file path="src/components/EstructuraJuego.jsx">
+// ==========================================
+// PLANTILLA: JUEGOS (Juego 1 y Juego 2)
+// Arquitectura: Abuelo ➔ Macros ➔ Micros (Cero textos, cero estilos en línea)
+// ==========================================
+import React from "react";
+import Boton from "./Boton";
+
+// ------------------------------------------
+// 1. EL ABUELO (Contenedor Raíz)
+// ------------------------------------------
+const ContenidoPrincipal = ({ fuenteDatos = {}, esIframe = false }) => {
+  return (
+    <MacroEstructura datosCompartidos={fuenteDatos} esIframe={esIframe} />
+  );
+};
+
+// ------------------------------------------
+// 2. LOS MACROS (Organizadores de Layout)
+// ------------------------------------------
+const MacroEstructura = ({ datosCompartidos }) => {
+  const base = datosCompartidos?.dinamicos?.memoria?.claseBaseEstilo || "juego1";
+  const juegoTerminado = datosCompartidos?.dinamicos?.efecto?.juegoTerminado || false;
+
+  if (juegoTerminado) {
+    return (
+      <main className={base}>
+        <MacroHeaderTerminado datos={datosCompartidos} base={base} />
+        <MacroSectionTerminado datos={datosCompartidos} base={base} />
+      </main>
+    );
+  }
+
+  return (
+    <main className={base}>
+      <MacroHeaderActivo datos={datosCompartidos} base={base} />
+      <MacroIndicador datos={datosCompartidos} base={base} />
+      <MacroOpciones datos={datosCompartidos} base={base} />
+    </main>
+  );
+};
+
+const MacroHeaderActivo = ({ datos, base }) => (
+  <header className={`${base}__caja-general`}>
+    <MicroTituloActivo paquete={datos} base={base} />
+  </header>
+);
+
+const MacroIndicador = ({ datos, base }) => (
+  <section className={`${base}__caja-general`}>
+    <MicroIndicador paquete={datos} base={base} />
+  </section>
+);
+
+const MacroOpciones = ({ datos, base }) => (
+  <section className={`${base}__caja-general`}>
+    <MicroPregunta paquete={datos} base={base} />
+    <MicroBotonesOpcion paquete={datos} base={base} />
+    <MicroRetroalimentacion paquete={datos} />
+  </section>
+);
+
+const MacroHeaderTerminado = ({ datos, base }) => (
+  <header className={`${base}__caja-general`}>
+    <MicroTituloTerminado paquete={datos} base={base} />
+  </header>
+);
+
+const MacroSectionTerminado = ({ datos, base }) => (
+  <section className={`${base}__caja-general`}>
+    <MicroAccionTerminado paquete={datos} base={base} />
+  </section>
+);
+
+// ------------------------------------------
+// 3. LOS MICROS (Átomos / Componentes Visuales Finales)
+// ------------------------------------------
+const MicroTituloActivo = ({ paquete, base }) => {
+  const { titulo } = paquete?.Bloque1 || {};
+  return <h1 className={`${base}__titulo`}>{titulo}</h1>;
+};
+
+const MicroIndicador = ({ paquete, base }) => {
+  const emojiUnico = paquete?.dinamicos?.memoria?.emojiUnico;
+  const textoAnimal = paquete?.dinamicos?.memoria?.textoAnimal;
+
+  return (
+    <div className={`${base}__contenedor-indicador`}>
+      <span className={`${base}__emoji-grande`}>{emojiUnico}</span>
+      <span className={`${base}__texto-animal`}>{textoAnimal}</span>
+    </div>
+  );
+};
+
+const MicroPregunta = ({ paquete, base }) => {
+  const { pregunta } = paquete?.Bloque1 || {};
+  return <p className={`${base}__pregunta`}>{pregunta}</p>;
+};
+
+const MicroBotonesOpcion = ({ paquete, base }) => {
+  const opciones = paquete?.dinamicos?.memoria?.opciones || [];
+  const alElegirOpcion = paquete?.dinamicos?.accion?.alElegirOpcion;
+  const mensajeRetro = paquete?.dinamicos?.efecto?.retroalimentacion?.mensaje || "";
+  const estaBloqueado = Boolean(mensajeRetro);
+
+  return (
+    <div className={`${base}__grupo-botones`}>
+      {opciones.map((opcionTexto, indice) => (
+        <Boton
+          key={indice}
+          contenido={opcionTexto}
+          bloqueado={estaBloqueado}
+          accion={() => alElegirOpcion && alElegirOpcion(opcionTexto)}
+          estilo={`${base}__boton-opcion`}
+        />
+      ))}
+    </div>
+  );
+};
+
+const MicroRetroalimentacion = ({ paquete }) => {
+  const retro = paquete?.dinamicos?.efecto?.retroalimentacion || {};
+  if (!retro.mensaje) return null;
+
+  return <p className={`mensaje ${retro.claseCSS || ""}`}>{retro.mensaje}</p>;
+};
+
+const MicroTituloTerminado = ({ paquete, base }) => {
+  const { tituloTerminado } = paquete?.Bloque2 || {};
+  return <h1 className={`${base}__titulo`}>{tituloTerminado}</h1>;
+};
+
+const MicroAccionTerminado = ({ paquete, base }) => {
+  const { preguntaTerminado, textoBotonSiguiente } = paquete?.Bloque2 || {};
+  const alHacerClickSiguiente = paquete?.dinamicos?.accion?.alHacerClickSiguiente;
+
+  return (
+    <>
+      <p className={`${base}__pregunta`}>{preguntaTerminado}</p>
+      <Boton
+        contenido={textoBotonSiguiente}
+        bloqueado={false}
+        accion={alHacerClickSiguiente}
+        estilo={`${base}__boton-siguiente`}
+      />
+    </>
+  );
+};
+
+export default ContenidoPrincipal;
+</file>
+
+<file path="src/components/EstructuraLogin.jsx">
+// ==========================================
+// PLANTILLA APLICADA: LOGIN (Con clases CSS integradas)
+// ==========================================
+
+import React from "react";
+import Boton from "./Boton";
+import { reproducirSonidoCurso } from "../services/sonido";
+
+// ------------------------------------------
+// 1. EL ABUELO (Contenedor Raíz)
+// Recibe los datos y el estado del iframe de forma limpia
+// ------------------------------------------
+const ContenidoPrincipal = ({ fuenteDatos = {}, esIframe = false }) => {
+  return (
+    <Area_Estructura datosCompartidos={fuenteDatos} esIframe={esIframe} />
+  );
+};
+
+// ------------------------------------------
+// 2. LOS MACROS / ÁREAS (Organizadores de Layout)
+// Aplican las clases principales de la caja y el modificador de iframe
+// ------------------------------------------
+const Area_Estructura = ({ datosCompartidos, esIframe }) => {
+  return (
+    <main className={`login ${esIframe ? "login--iframe" : ""}`}>
+      <Area_Header datos={datosCompartidos} />
+      <Area_Section datos={datosCompartidos} />
+    </main>
+  );
+};
+
+const Area_Header = ({ datos }) => (
+  <header>
+    <Pieza_Titulo paquete={datos} />
+  </header>
+);
+
+const Area_Section = ({ datos }) => {
+  const mensajeError = datos?.dinamicos?.efecto?.error;
+
+  return (
+    <>
+      <section className="login__caja-general">
+        <Pieza_Usuario paquete={datos} />
+        <Pieza_Contraseña paquete={datos} />
+        
+        {mensajeError && <p className="login__error">{mensajeError}</p>}
+      </section>
+
+      <section className="login__caja-general">
+        <Pieza_Boton paquete={datos} />
+      </section>
+    </>
+  );
+};
+
+// ------------------------------------------
+// 3. LAS PIEZAS (Átomos / Componentes Finales Visuales)
+// Cada una utiliza exclusivamente sus clases CSS correspondientes
+// ------------------------------------------
+
+const Pieza_Titulo = ({ paquete }) => {
+  const { titulo, subtitulo } = paquete?.Bloque1 || {}; 
+
+  return (
+    <div className="login__caja-general">
+      <h1 className="login__titulo">{titulo || "Iniciar Sesión"}</h1>
+      <p className="login__pregunta">{subtitulo || "Ingresa tus credenciales para continuar"}</p>
+    </div>
+  );
+}; 
+
+const Pieza_Usuario = ({ paquete }) => {
+  const { etiquetaUsuario } = paquete?.Bloque2 || {}; 
+  const valor = paquete?.dinamicos?.memoria?.identificador || "";
+  const alCambiar = paquete?.dinamicos?.accion?.alCambiarIdentificador;
+
+  return (
+    <div className="input-grupo">
+      <label className="login__pregunta">
+              {etiquetaUsuario || "Usuario"}
+      </label>
+      <input 
+              type="text" 
+              className="login__input-nombre"
+              value={valor} 
+              onChange={alCambiar} 
+              placeholder={etiquetaUsuario || "Usuario"} 
+      />
+    </div>
+  );
+}; 
+
+const Pieza_Contraseña = ({ paquete }) => {
+  const { etiquetaPassword } = paquete?.Bloque2 || {}; 
+  const valor = paquete?.dinamicos?.memoria?.password || "";
+  const alCambiar = paquete?.dinamicos?.accion?.alCambiarPassword;
+
+  return (
+    <div className="input-grupo login__input-password">
+
+      <label className="login__pregunta">
+              {etiquetaPassword || "Contraseña"}
+      </label>
+      <input 
+              type="password" 
+              className="login__input-nombre"
+              value={valor} 
+              onChange={alCambiar} 
+              placeholder={etiquetaPassword || "Contraseña"}
+      />
+    </div>
+  );
+}; 
+
+const Pieza_Boton = ({ paquete }) => {
+  const { textoBoton } = paquete?.Bloque3 || {}; 
+  const alHacerClick = paquete?.dinamicos?.accion?.alHacerClickIngresar;
+  const cargando = paquete?.dinamicos?.efecto?.cargando;
+
+  return (
+    <div className="boton-grupo">
+      <Boton
+        contenido={cargando ? "Cargando..." : (textoBoton || "Ingresar")}
+        bloqueado={cargando}
+        accion={alHacerClick}
+        alPasarCursor={() => reproducirSonidoCurso("Acceso")}
+        estilo="login__boton-comenzar"
+      />
+    </div>
+  );
+};
+
+export default ContenidoPrincipal;
+</file>
+
+<file path="src/components/EstructuraResultados.jsx">
+// ==========================================
+// PLANTILLA: RESULTADOS
+// Arquitectura: Abuelo ➔ Macros ➔ Micros (Cero textos sueltos, cero estilos en línea)
+// ==========================================
+import React from "react";
+import Boton from "./Boton";
+
+// ------------------------------------------
+// 1. EL ABUELO (Contenedor Raíz)
+// ------------------------------------------
+const ContenidoPrincipal = ({ fuenteDatos = {}, esIframe = false }) => {
+  return (
+    <MacroEstructura datosCompartidos={fuenteDatos} esIframe={esIframe} />
+  );
+};
+
+// ------------------------------------------
+// 2. LOS MACROS (Organizadores de Layout)
+// ------------------------------------------
+const MacroEstructura = ({ datosCompartidos }) => {
+  const estaReiniciando = datosCompartidos?.dinamicos?.efecto?.estaReiniciando || false;
+
+  if (estaReiniciando) {
+    return (
+      <main className="resultados">
+        <MacroReiniciando datos={datosCompartidos} />
+      </main>
+    );
+  }
+
+  return (
+    <main className="resultados">
+      <MacroHeader datos={datosCompartidos} />
+      <MacroJugador datos={datosCompartidos} />
+      <MacroPuntajes datos={datosCompartidos} />
+      <MacroFooter datos={datosCompartidos} />
+    </main>
+  );
+};
+
+const MacroReiniciando = ({ datos }) => (
+  <>
+    <header className="resultados__caja-general">
+      <MicroTituloReiniciando paquete={datos} />
+    </header>
+    <section className="resultados__caja-general">
+      <MicroMensajeReiniciando paquete={datos} />
+    </section>
+  </>
+);
+
+const MacroHeader = ({ datos }) => (
+  <header className="resultados__caja-general">
+    <MicroTitulo paquete={datos} />
+  </header>
+);
+
+const MacroJugador = ({ datos }) => (
+  <header className="resultados__caja-general">
+    <MicroNombreJugador paquete={datos} />
+  </header>
+);
+
+const MacroPuntajes = ({ datos }) => (
+  <section className="resultados__caja-general">
+    <MicroSubtitulo paquete={datos} />
+    <MicroFilaPuntaje paquete={datos} claveTexto="etiquetaJuego1" claveValor="puntajeJuego1" maximo={50} />
+    <MicroFilaPuntaje paquete={datos} claveTexto="etiquetaJuego2" claveValor="puntajeJuego2" maximo={50} />
+    <MicroTotalPuntaje paquete={datos} />
+    <MicroFelicitacion paquete={datos} />
+  </section>
+);
+
+const MacroFooter = ({ datos }) => (
+  <section className="resultados__caja-general">
+    <MicroBotonReiniciar paquete={datos} />
+  </section>
+);
+
+// ------------------------------------------
+// 3. LOS MICROS (Átomos / Componentes Visuales Finales)
+// ------------------------------------------
+const MicroTituloReiniciando = ({ paquete }) => {
+  const { tituloReiniciando } = paquete?.Bloque3 || {};
+  return <h1 className="resultados__titulo">{tituloReiniciando}</h1>;
+};
+
+const MicroMensajeReiniciando = ({ paquete }) => {
+  const { mensajeReiniciando } = paquete?.Bloque3 || {};
+  return <p className="resultados__pregunta">{mensajeReiniciando}</p>;
+};
+
+const MicroTitulo = ({ paquete }) => {
+  const { titulo } = paquete?.Bloque1 || {};
+  return <h1 className="resultados__titulo">{titulo}</h1>;
+};
+
+const MicroNombreJugador = ({ paquete }) => {
+  const nombre = paquete?.dinamicos?.memoria?.nombreJugador;
+  return <p className="resultados__nombre">¡Felicitaciones, {nombre}!</p>;
+};
+
+const MicroSubtitulo = ({ paquete }) => {
+  const { subtitulo } = paquete?.Bloque1 || {};
+  return <h2 className="resultados__subtitulo">{subtitulo}</h2>;
+};
+
+const MicroFilaPuntaje = ({ paquete, claveTexto, claveValor, maximo }) => {
+  const bloque = paquete?.Bloque1 || {};
+  const valor = paquete?.dinamicos?.memoria?.[claveValor] ?? 0;
+
+  return (
+    <div className="resultados__resultado">
+      <span>{bloque[claveTexto]}</span>
+      <strong>{valor} / {maximo}</strong>
+    </div>
+  );
+};
+
+const MicroTotalPuntaje = ({ paquete }) => {
+  const { etiquetaTotal } = paquete?.Bloque1 || {};
+  const total = paquete?.dinamicos?.memoria?.puntajeTotal ?? 0;
+
+  return (
+    <div className="resultados__resultado-total">
+      <span>{etiquetaTotal}</span>
+      <strong>{total} / 100</strong>
+    </div>
+  );
+};
+
+const MicroFelicitacion = ({ paquete }) => {
+  const mensaje = paquete?.dinamicos?.memoria?.mensajeFelicitacion || "";
+  return <p className="resultados__felicitacion">{mensaje}</p>;
+};
+
+const MicroBotonReiniciar = ({ paquete }) => {
+  const { textoBotonReiniciar } = paquete?.Bloque2 || {};
+  const alReiniciar = paquete?.dinamicos?.accion?.alHacerClickReiniciar;
+  const bloqueado = paquete?.dinamicos?.efecto?.estaReiniciando || false;
+
+  return (
+    <Boton
+      contenido={textoBotonReiniciar}
+      bloqueado={bloqueado}
+      accion={alReiniciar}
+      estilo="resultados__boton-reiniciar"
+    />
+  );
+};
+
+export default ContenidoPrincipal;
+</file>
+
+<file path="src/css/EstiloAdmin.css">
+/* ==========================================
+   ESTILOS: PANEL DOCENTE / ADMINISTRADOR
+   ========================================== */
+.admin-contenedor {
+  width: 850px;
+  max-width: 95%;
+  min-height: 500px;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 30px;
+  box-shadow: var(--sombra-general);
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  border: 4px solid #90caf9;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #e3f2fd;
+  padding: 15px 25px;
+  border-radius: 20px;
+  border: 2px dashed #90caf9;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.admin-badge {
+  background-color: #1976d2;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 16px;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.admin-tabs {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.admin-tab {
+  background: none;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  color: #555;
+  cursor: pointer;
+  padding-bottom: 4px;
+  border-bottom: 3px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.admin-tab:hover, .admin-tab--activo {
+  color: #1976d2;
+  border-bottom-color: #1976d2;
+}
+
+.admin-seccion-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.admin-titulo-lista {
+  text-align: center;
+  font-size: 22px;
+  color: #0d47a1;
+  font-weight: bold;
+}
+
+.admin-tabla-wrapper {
+  overflow-x: auto;
+  border-radius: 15px;
+  border: 2px solid #bbdefb;
+}
+
+.admin-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  background-color: #fff;
+}
+
+.admin-tabla th {
+  background-color: #e3f2fd;
+  color: #0d47a1;
+  padding: 14px 18px;
+  font-size: 16px;
+  border-bottom: 2px solid #bbdefb;
+  text-align: center;
+}
+
+.admin-tabla th:first-child {
+  text-align: left;
+}
+
+.admin-tabla td {
+  padding: 12px 18px;
+  color: #333;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 15px;
+  text-align: center;
+}
+
+.admin-tabla td:first-child {
+  text-align: left;
+  font-weight: 600;
+}
+
+.admin-tabla tr:hover {
+  background-color: #f5f9ff;
+}
+
+.admin-tabla-vacia {
+  text-align: center;
+  color: #666;
+  padding: 20px;
+}
+
+.admin-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.admin-boton-cerrar {
+  background-color: #d32f2f;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.admin-boton-cerrar:hover {
+  background-color: #b71c1c;
+}
+
+/* Clases para la vista previa del Iframe (movidas desde los estilos en línea) */
+.admin-iframe-container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.admin-iframe-wrapper-box {
+  width: 100%;
+  height: 312px;
+  border: 2px solid #90caf9;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f8fbff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  position: relative;
+}
+
+.admin-iframe-preview {
+  width: 1050px;
+  height: 650px;
+  transform: translateX(-50%) scale(0.48);
+  transform-origin: top center;
+  border: none;
+  position: absolute;
+  top: 0;
+  left: 50%;
+}
+</file>
+
+<file path="src/css/EstiloJuegos.css">
+/* ==========================================
+   ESTILOS UNIFICADOS: MINIJUEGOS (Juego 1 y Juego 2)
+   ========================================== */
+.juego1, .juego2 {
+  width: 520px;
+  max-width: 90%;
+  padding: 25px 30px;
+  background-color: #ffffff;
+  border-radius: 35px;
+  box-shadow: var(--sombra-general);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  text-align: center;
+}
+
+.juego1 { border: 4px solid var(--color-juego1-borde); }
+.juego2 { border: 4px solid var(--color-juego2-borde); }
+
+.juego1__caja-general, .juego2__caja-general {
+  padding: 15px 20px;
+  border-radius: 20px;
+  border: 3px dashed var(--color-juego1-borde);
+  background-color: var(--color-juego1-fondo);
+}
+
+.juego2__caja-general {
+  background-color: var(--color-juego2-fondo);
+  border-color: var(--color-juego2-borde);
+}
+
+.juego1__titulo {
+  font-size: 24px;
+  color: var(--color-juego1-primario);
+}
+
+.juego2__titulo {
+  font-size: 24px;
+  color: var(--color-juego2-primario);
+}
+
+.juego1__emoji-grande, .juego2__emoji-grande {
+  display: inline-block;
+  margin: 5px 0;
+  font-size: 85px;
+}
+
+.juego1__pregunta, .juego2__pregunta {
+  font-size: 17px;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 12px;
+}
+
+.juego1__grupo-botones, .juego2__grupo-botones {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.juego1__boton-opcion, .juego2__boton-opcion,
+.juego1__boton-siguiente, .juego2__boton-siguiente {
+  background-color: #ffb74d;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: transform 0.1s ease, background-color 0.2s ease;
+}
+
+.juego2__boton-opcion, .juego2__boton-siguiente {
+  background-color: #4dd0e1;
+}
+
+.juego1__boton-opcion:hover, .juego2__boton-opcion:hover {
+  transform: scale(1.05);
+}
+
+/* Mensajes de retroalimentación */
+.mensaje {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.juego1__mensaje--correcto, .juego2__mensaje--correcto {
+  background-color: #c8e6c9;
+  color: #2e7d32;
+}
+
+.juego1__mensaje--incorrecto, .juego2__mensaje--incorrecto {
+  background-color: #ffcdd2;
+  color: #c62828;
+}
+</file>
+
+<file path="src/css/EstiloLogin.css">
+/* ==========================================
+   ESTILOS: ACCESO / INICIO DE SESIÓN
+   ========================================== */
+.login {
+  width: 480px;
+  max-width: 90%;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: var(--radio-caja);
+  box-shadow: var(--sombra-general);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border: 4px solid var(--color-login-borde);
+}
+
+.login__caja-general {
+  padding: 15px;
+  border-radius: 15px;
+  background-color: var(--color-login-fondo);
+  border: 2px dashed var(--color-login-borde);
+}
+
+.login__titulo {
+  color: var(--color-login-primario);
+  font-size: 26px;
+}
+
+.login__pregunta {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.login__input-nombre {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 16px;
+  border: 2px solid #81c784;
+  border-radius: 12px;
+  outline: none;
+  text-align: center;
+}
+
+.login__input-nombre:focus {
+  border-color: var(--color-login-primario);
+}
+
+.login__input-password {
+  margin-top: 12px;
+}
+
+.login__error {
+  color: #d32f2f;
+  font-size: 14px;
+  margin-top: 8px;
+  font-weight: bold;
+}
+
+.login__boton-comenzar {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.login__boton-comenzar:hover {
+  background-color: #388e3c;
+}
+
+/* Modificador para la vista previa del iframe en el panel docente */
+.login--iframe {
+  position: relative;
+  min-height: auto;
+  box-shadow: none;
+  width: 100%;
+  margin: 0 auto;
+}
+</file>
+
+<file path="src/css/EstiloResultados.css">
+/* ==========================================
+   ESTILOS: RESUMEN DE PARTIDA / RESULTADOS
+   ========================================== */
+.resultados {
+  width: 480px;
+  max-width: 90%;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: var(--radio-caja);
+  box-shadow: var(--sombra-general);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border: 4px solid var(--color-resultados-borde);
+}
+
+.resultados__caja-general {
+  padding: 15px;
+  border-radius: 15px;
+  background-color: var(--color-resultados-fondo);
+  border: 2px dashed var(--color-resultados-borde);
+}
+
+.resultados__titulo {
+  color: var(--color-resultados-primario);
+  font-size: 24px;
+}
+
+.resultados__nombre {
+  font-size: 18px;
+  font-weight: bold;
+  color: #4a148c;
+}
+
+.resultados__subtitulo {
+  font-size: 18px;
+  color: #4a148c;
+  margin-bottom: 10px;
+}
+
+.resultados__resultado {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 15px;
+  background: #ffffff;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  font-size: 16px;
+  color: #333;
+}
+
+.resultados__resultado-total {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 15px;
+  background: #e1bee7;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 17px;
+  color: #4a148c;
+  margin-top: 5px;
+}
+
+.resultados__felicitacion {
+  margin-top: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #512da8;
+  line-height: 1.4;
+}
+
+.resultados__boton-reiniciar {
+  background-color: #ab47bc;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-size: 17px;
+  font-weight: bold;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.resultados__boton-reiniciar:hover {
+  background-color: #8e24aa;
+}
+</file>
+
+<file path="src/hooks/useInicioSesion.js">
+// ==========================================
+// CUSTOM HOOK: useLogin.js (Cerebro del Login)
+// ==========================================
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { iniciarSesion } from "../services/navegador";
+
+export const useLogin = (esIframe) => { // 👈 1. Recibe si es iframe desde InicioSesion.jsx
+  const navigate = useNavigate();
+
+  // 1. MEMORIA
+  const [credenciales, setCredenciales] = useState({
+    identificador: "",
+    password: ""
+  });
+  
+  // 3. EFECTO
+  const [cargando, setCargando] = useState(false);
+  const [error, setError] = useState("");
+
+  // 2. ACCIÓN
+  const actualizarCampo = (campo) => (e) => {
+    const valor = e.target.value;
+    setCredenciales((prev) => ({ ...prev, [campo]: valor }));
+    if (error) setError(""); 
+  };
+
+  const manejarComenzar = async () => {
+    // Si no es iframe, exigimos que rellene los campos
+    if (!esIframe && (!credenciales.identificador || !credenciales.password)) {
+      setError("⚠️ Por favor completa todos los campos.");
+      return;
+    }
+
+    try {
+      setCargando(true);
+      setError("");
+
+      // 🚀 2. Enviamos la bandera 'esIframe' a tu iniciarSesion() existente
+      const resultado = await iniciarSesion(
+        credenciales.identificador, 
+        credenciales.password,
+        esIframe
+      );
+
+      if (resultado.valido === false) {
+        setError("❌ Credenciales incorrectas o usuario no encontrado.");
+        setCredenciales({ identificador: "", password: "" });
+        setCargando(false);
+        return;
+      }
+
+      navigate(resultado.rutaDestino || "/inicio");
+
+    } catch (err) {
+      setError("⚠️ Ocurrió un error al intentar iniciar sesión.");
+      setCargando(false);
+    }
+  };
+
+  return {
+    memoria: {
+      identificador: credenciales.identificador,
+      password: credenciales.password
+    },
+    accion: {
+      alCambiarIdentificador: actualizarCampo("identificador"),
+      alCambiarPassword: actualizarCampo("password"),
+      alHacerClickIngresar: manejarComenzar
+    },
+    efecto: {
+      error: error,
+      cargando: cargando
+    }
+  };
+};
+</file>
+
+<file path="src/hooks/usePanelAdmin.js">
+// ==========================================
+// CUSTOM HOOK: usePanelAdmin.js (Cerebro del Panel Docente)
+// ==========================================
+import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { obtenerListaAlumnos, cerrarSesion } from "../services/navegador";
+import { PANTALLAS_ALUMNO } from "../routes/Rutas";
+
+export const usePanelAdmin = () => {
+  const navigate = useNavigate();
+  const iframeRef = useRef(null);
+
+  // 1. MEMORIA
+  const [pantallaActiva, setPantallaActiva] = useState(1);
+  const [listaAlumnos, setListaAlumnos] = useState([]);
+
+  // 3. EFECTO
+  const [mostrarTabla, setMostrarTabla] = useState(true);
+
+  useEffect(() => {
+    if (mostrarTabla) {
+      obtenerListaAlumnos().then((alumnos) => {
+        setListaAlumnos(alumnos);
+      });
+    }
+  }, [mostrarTabla]);
+
+  useEffect(() => {
+    const manejarMensaje = (event) => {
+      if (event.data?.tipo === "CAMBIO_RUTA_IFRAME") {
+        const encontrada = PANTALLAS_ALUMNO.find((p) => p.ruta === event.data.pathname);
+        if (encontrada) {
+          setPantallaActiva(encontrada.numero);
+        }
+      }
+    };
+
+    window.addEventListener("message", manejarMensaje);
+    return () => window.removeEventListener("message", manejarMensaje);
+  }, []);
+
+  // 2. ACCIÓN
+  const irAlMenuDocente = () => {
+    setMostrarTabla(true);
+  };
+
+  const seleccionarPantalla = (num) => {
+    setPantallaActiva(num);
+    setMostrarTabla(false);
+  };
+
+  const manejarCierreSesion = () => {
+    cerrarSesion();
+    navigate("/");
+  };
+
+  const infoPantalla =
+    PANTALLAS_ALUMNO.find((p) => p.numero === pantallaActiva) || PANTALLAS_ALUMNO[0];
+
+  return {
+    memoria: {
+      pantallaActiva: pantallaActiva,
+      listaAlumnos: listaAlumnos,
+      iframeRef: iframeRef,
+      infoPantalla: infoPantalla
+    },
+    accion: {
+      alIrAlMenuDocente: irAlMenuDocente,
+      alSeleccionarPantalla: seleccionarPantalla,
+      alCerrarSesion: manejarCierreSesion
+    },
+    efecto: {
+      mostrarTabla: mostrarTabla
+    }
+  };
+};
+</file>
+
+<file path="src/pages/InicioSesion.jsx">
+// ==========================================
+// PÁGINA: Inicio de Sesión (Cascarón Delgado)
+// ==========================================
+import React from "react";
+import ContenidoPrincipal from "../components/EstructuraLogin";
+import { useLogin } from "../hooks/useInicioSesion";
+import { useEntorno } from "../hooks/useEntorno";
+import miJsonLogin from "../data/textosLogin.json";
+import "../css/EstiloLogin.css";
+
+const InicioSesion = () => {
+  // 1. Hook especialista en el entorno (detecta el iframe y cambia el body)
+  const { esIframe } = useEntorno("body-login");
+
+  // 2. Hook especialista en el negocio (Memoria, Acción y Efecto)
+  const dinamicos = useLogin(esIframe);
+
+  // 3. Paquete maestro que une los textos estáticos con la lógica dinámica
+  const paqueteMaestro = {
+    ...miJsonLogin,
+    dinamicos
+  };
+
+  return (
+    <ContenidoPrincipal 
+      fuenteDatos={paqueteMaestro} 
+      esIframe={esIframe} 
+    />
+  );
+};
+
+export default InicioSesion;
+</file>
+
+<file path="src/pages/PanelAdmin.jsx">
+// ==========================================
+// PÁGINA: PanelAdmin (Cascarón Delgado)
+// ==========================================
+import React from "react";
+import ContenidoPrincipal from "../components/EstructuraAdmin";
+import { usePanelAdmin } from "../hooks/usePanelAdmin";
+import { useEntorno } from "../hooks/useEntorno";
+import miJsonAdmin from "../data/textosAdmin.json";
+import "../css/EstiloAdmin.css";
+
+const PanelAdmin = () => {
+  const { esIframe } = useEntorno("body-admin");
+  const dinamicos = usePanelAdmin();
+
+  const paqueteMaestro = {
+    ...miJsonAdmin,
+    dinamicos
+  };
+
+  return (
+    <ContenidoPrincipal 
+      fuenteDatos={paqueteMaestro} 
+      esIframe={esIframe} 
+    />
+  );
+};
+
+export default PanelAdmin;
+</file>
+
+<file path=".gitignore">
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+</file>
+
+<file path="eslint.config.js">
+import js from '@eslint/js'
+import globals from 'globals'
+import reactHooks from 'eslint-plugin-react-hooks'
+import reactRefresh from 'eslint-plugin-react-refresh'
+import { defineConfig, globalIgnores } from 'eslint/config'
+
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{js,jsx}'],
+    extends: [
+      js.configs.recommended,
+      reactHooks.configs.flat.recommended,
+      reactRefresh.configs.vite,
+    ],
+    languageOptions: {
+      globals: globals.browser,
+      parserOptions: { ecmaFeatures: { jsx: true } },
+    },
+  },
+])
+</file>
+
+<file path="README.md">
+# React + Vite
+
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+
+Currently, two official plugins are available:
+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+
+## React Compiler
+
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+</file>
+
+<file path="vite.config.js">
+import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite'
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [react()],
+})
+</file>
+
+<file path="src/css/EstiloGlobal.css">
+/* ==========================================
+   ESTILOS Y DESIGN TOKENS GLOBALES (DRY)
+   ========================================== */
+:root {
+  --fuente-principal: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  
+  /* Tokens de Login */
+  --color-login-primario: #2e7d32;
+  --color-login-fondo: #f1f8e9;
+  --color-login-borde: #a5d6a7;
+
+  /* Tokens de Juego 1 */
+  --color-juego1-primario: #d84315;
+  --color-juego1-fondo: #fffbf0;
+  --color-juego1-borde: #ffe082;
+
+  /* Tokens de Juego 2 */
+  --color-juego2-primario: #00838f;
+  --color-juego2-fondo: #f0f9fa;
+  --color-juego2-borde: #80deea;
+
+  /* Tokens de Resultados */
+  --color-resultados-primario: #6a1b9a;
+  --color-resultados-fondo: #f3e5f5;
+  --color-resultados-borde: #ce93d8;
+
+  /* Tokens generales */
+  --sombra-general: 0 12px 30px rgba(0, 0, 0, 0.1);
+  --radio-caja: 30px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--fuente-principal);
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.5s ease, background-image 0.5s ease;
+}
+
+/* Transiciones genéricas reutilizables */
+.fade-in {
+  animation: fadeIn 0.4s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</file>
+
+<file path="src/main.jsx">
+// ==========================================
+// PUNTO DE ENTRADA PRINCIPAL DE LA APLICACIÓN
+// ==========================================
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { RouterProvider } from "react-router-dom";
+import { rutas } from "./routes/Rutas.jsx";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <RouterProvider router={rutas} />
+  </React.StrictMode>
+);
+</file>
+
+<file path="index.html">
+<!doctype html>
+<html lang="es">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mi Proyecto React</title>
+    <link rel="icon" href="data:," />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+</file>
+
+<file path="package.json">
+{
+  "name": "mi-proyecto",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "axios": "^1.21.1",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-router-dom": "^7.18.4"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "eslint": "^10.10.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.6",
+    "globals": "^17.12.0",
+    "vite": "^8.3.0"
+  }
+}
+</file>
+
+<file path="src/App.jsx">
+// ==========================================
+// LAYOUT RAÍZ / CONTENEDOR GENERAL DE RUTAS
+// ==========================================
+import { useEffect } from "react";
+import { Outlet, useLocation } from "react-router-dom";
+import "./css/EstiloGlobal.css"; // Estilos base y transiciones transversales
+import MusicaFondo from "./components/MusicaFondo"; // 👈 1. Importa el componente de música
+
+export default function App() {
+  const ubicacion = useLocation();
+
+  useEffect(() => {
+    // Si la aplicación está corriendo dentro de un iframe, notifica al Panel Admin el cambio de ruta en tiempo real
+    if (window.self !== window.top) {
+      window.parent.postMessage(
+        { tipo: "CAMBIO_RUTA_IFRAME", pathname: ubicacion.pathname },
+        "*"
+      );
+    }
+  }, [ubicacion.pathname]);
+
+  return (
+    <div className="app-contenedor-principal">
+      {/* 🎵 2. Renderiza la música de fondo para que esté presente globalmente */}
+      <MusicaFondo />
+
+      <div key={ubicacion.pathname} className="transicion-pagina">
+        <Outlet />
+      </div>
+    </div>
+  );
+}
+</file>
+
+<file path="src/routes/Rutas.jsx">
+import { createBrowserRouter } from "react-router-dom";
+import App from "../App.jsx";
+import InicioSesion from "../pages/InicioSesion.jsx";
+import Juego1 from "../pages/Juego1.jsx";
+import Juego2 from "../pages/Juego2.jsx";
+import Resultados from "../pages/Resultados.jsx";
+import PanelAdmin from "../pages/PanelAdmin.jsx";
+
+// Títulos limpios y directos para las pestañas del Panel Docente
+export const PANTALLAS_ALUMNO = [
+  { numero: 1, titulo: "Acceso", ruta: "/" },
+  { numero: 2, titulo: "Juego 1", ruta: "/juego1" },
+  { numero: 3, titulo: "Juego 2", ruta: "/juego2" },
+  { numero: 4, titulo: "Resultados", ruta: "/resultados" }
+];
+
+export const rutas = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      { index: true, element: <InicioSesion /> },
+      { path: "/juego1", element: <Juego1 /> },
+      { path: "/juego2", element: <Juego2 /> },
+      { path: "/resultados", element: <Resultados /> },
+      { path: "/admin", element: <PanelAdmin /> },
+    ],
+  },
+]);
+</file>
+
+<file path="DIA.md">
+# 📋 Reporte de Progreso General - ProyectoFinal
+
+## 👤 Reporte de Progreso - Miembro 1
+
+### 📒 Datos Generales
+- **Estudiante:** Torrez Joaquin
+- **Ejercicio Asignado:**
+  - **Ejercicio 01:** Pantalla de Login (Validación y almacenamiento de nombre de usuario)
+  - **Ejercicio 02:** Juego 1: ¡Hora de Comer! (Manejo de rondas, opciones aleatorias, puntaje y persistencia)
+
+
+## 📁 Componentes (components/)
+
+##  📄  `Boton.jsx`:
+Componente de interfaz reutilizable diseñado para encapsular la estructura y el comportamiento de los botones de acción bajo una misma base homogénea.
+
+##  📄  `PlantillaJuegoBase.jsx`:
+se implento un componente estructural para unificar la interfaz de todos los minijuegos de la plataforma y evitar duplicar código de diseño entre pantallas.
+
+Lo utilizan directamente las pantallas de juego (como Pantalla02.jsx y Pantalla03.jsx) para renderizar de forma uniforme tanto el estado activo de las preguntas como la pantalla final de puntajes.
+
+## 📁 Estilos (css/)
+
+##  📄  `EstiloGlobal.css`:
+ Aplica de forma global para unificar los estilos transversales en todas las pantallas y componentes.
+
+ Al importarse en la raíz, sus reglas se aplican de manera global a todo el proyecto, afectando a todas las pantallas (Pantalla01, Pantalla02, etc.) y componentes sin necesidad de importarlos individualmente en cada archivo.
+
+##  📄  `trasiciones.css`:
+Centraliza las reglas de animación, efectos de desvanecimiento y microinteracciones fluidas para los elementos interactivos.
+
+Aporta dinamismo visual y suavidad en la respuesta de los botones, estados de carga y cambios de estado.
+
+Se conectan directamente al archivo raíz o de entrada principal de la aplicación React (app.jsx).
+
+Al importarse en la raíz, sus reglas se aplican de manera global a todo el proyecto, afectando a todas las pantallas (Pantalla01, Pantalla02, etc.) y componentes sin necesidad de importarlos individualmente en cada archivo.
+
+## 📁 Hook (hooks/)
+
+##  📄  `useFondoPantalla.js`:
+Añade dinámicamente la clase CSS del cuerpo de la página al montarse y la limpia al desmontarse.
+
+Se conecta directamente al objeto global document.body de cada pantalla para cambiar el fondo exclusivo.
+
+Lo utilizan las pantallas de forma individual (Pantalla01, Pantalla02, etc.) para asignar el color de fondo correspondiente.
+
+##  📄  `useJuego.js`:
+Orquesta todo el ciclo de vida, las rondas asíncronas, el puntaje y las respuestas de los minijuegos.
+
+Se conecta con los servicios de cálculo (calculoPantalla02.js y calculoPantalla03.js) y con react-router-dom para la navegación.
+
+Lo utilizan directamente las pantallas de juego (Pantalla02.jsx y Pantalla03.jsx) para encapsular toda su lógica interactiva.
+
+##  📄  `useProgresoPartida.js`:
+Proporciona una interfaz limpia y desacoplada para leer y modificar el estado global de la partida.
+
+Se conecta directamente con el módulo de almacenamiento global en memoria (estadoJuego.js).
+
+Lo utilizan las pantallas principales (Pantalla01, Pantalla02, Pantalla03, Pantalla04) para registrar nombres, guardar puntajes y reiniciar el juego.
+
+## 📁 Servicios (services/)
+
+### ⚙️ `estadoJuego.js`:
+
+El módulo que guarda en memoria la sesión actual con el nombre y los puntajes de los minijuegos.
+Permite registrar y limitar los puntos mediante funciones seguras sin romper la reactividad.
+Borra todo y deja los valores en cero cuando tocamos el botón de reiniciar la partida.
+
+### ⚙️ `utilidades.js`:
+
+Módulo de funciones auxiliares que centraliza la lógica compartida de procesamiento de datos, aleatoriedad y validación para los minijuegos.
+
+Implementa el algoritmo de mezcla Fisher-Yates para el barajado estocástico de opciones y un servicio asíncrono genérico basado en fetch para la ingesta de recursos JSON.
+
+Se importa directamente en calculoPantalla02.js y calculoPantalla03.js para reutilizar las funciones de carga de rondas y validación de respuestas.
+
+Sirve como la base principal que le da soporte a los minijuegos de toda la aplicación sin tener que duplicar lógica.
+
+
+## 📁 public (data/):
+
+###  `rondasJuego1.json`:
+Contiene el conjunto de datos estructurados en formato JSON con los animales, sus emojis y las opciones de comida correspondientes.
+
+Define las rondas del primer minijuego interactivo sobre la alimentación correcta de los animales de la granja.
+
+Se conecta directamente con el servicio calculoPantalla02.js a través de la función asíncrona que carga y procesa las rondas.
+
+###  `rondasJuego1.json`:
+Almacena las estructuras de datos en formato JSON con los grupos de opciones para identificar al animal intruso.
+
+Define las rondas del segundo minijuego desafiando al usuario a reconocer elementos ajenos al entorno rural.
+
+Se conecta directamente con el servicio calculoPantalla03.js mediante la función encargada de consumir y barajar las rondas.
+
+### Archivos Creados:
+- `src/css/EstiloPantalla03.css`
+- `src/css/EstiloPantalla04.css`
+- `src/pages/Pantalla03.jsx`
+- `src/pages/Pantalla04.jsx`
+- `src/services/calculoPantalla03.js`
+- `src/componets/PlantillaJuegoBase.js`
+- `src/hooks/useFondoPantalla.js`
+- `src/hooks/useJuego.js`
+- `src/hooks/useProgresoPartida.js`
+
+### Archivos Modificados:
+- `src/services/calculoPantalla01.js`
+- `src/services/calculoPantalla02.js`
+- `src/services/calculoPantalla03.js`
+- `src/services/calculoPantalla04.js`
+- `src/services/estadoJuego.js`
+- `src/services/utilidades.js`
+
+- **Archivos Eliminados:** N/A
+
+## 🤖 Uso de Inteligencia Artificial
+
+- **Uso de IA:**
+  - [x] Sí
+  - [ ] No
+
+- **Forma de uso:** 
+  - [ ] **Autogeneración IA:** Código completo hecho por la IA para copiar y pegar.
+  - [ ] **Alto (Copiloto):** Trabajo en equipo constante con la IA.
+  - [x] **Medio (Guía):** Consulta para resolver dudas y corregir errores.
+  - [ ] **Bajo (Consulta puntual):** Ayuda rápida para resolver dudas menores.
+
+
+
+
+
+
+
+
+
+
+
+
+## 👤 Reporte de Progreso - Miembro 2
+
+### 📒 Datos Generales
+- **Estudiante:** Gastón Flores
+- **Ejercicio Asignado:**
+  - **Ejercicio 03:** Juego 2: El Intruso de la Granja (Manejo de rondas, selección de animales, validación de respuestas y puntaje).
+  - **Ejercicio 04:** Pantalla de resumen final (Visualización de puntajes y resultado total de la partida).
+
+
+### 📄 `Pantalla03.jsx`:
+Componente correspondiente al segundo juego de la aplicación, denominado "El Intruso de la Granja". Gestiona el desarrollo de las rondas mediante hooks de React como `useState` y `useEffect`, y utiliza `useNavigate` de `react-router-dom` para controlar la navegación.
+
+El componente presenta diferentes grupos de animales y permite al jugador identificar cuál es el intruso. Al seleccionar una respuesta, valida si es correcta, muestra una retroalimentación visual y actualiza el puntaje. Al finalizar las rondas, guarda el puntaje obtenido mediante `guardarPuntajeJuego2` desde `estadoJuego.js` y redirige a la pantalla de resumen final.
+
+### 📄 `Pantalla04.jsx`:
+Componente encargado de mostrar el resumen final de la partida. Recupera los datos almacenados en el servicio `estadoJuego.js` mediante `obtenerResumenPartida()`.
+
+Presenta el nombre del jugador, los puntajes obtenidos en ambos juegos y el puntaje total sobre 100 puntos. También muestra un mensaje de felicitación según el desempeño del jugador y permite reiniciar la partida mediante un botón que limpia los datos guardados y redirige a la pantalla inicial.
+
+---
+
+## 🛠️ Servicios (services/)
+
+### ⚙️ `calculoPantalla03.js`:
+Módulo encargado de centralizar la lógica del Juego 2, "El Intruso de la Granja".
+
+- **rondasJuego2:** Arreglo que contiene las rondas del juego, con grupos de animales y la respuesta correcta.
+- **calcularPuntajeYValidacion(opcionElegida, opcionCorrecta, puntajeActual):** Evalúa si el animal seleccionado es el intruso, determina si la respuesta es correcta y actualiza el puntaje.
+- **prepararGuardadoFinal(puntajeFinal):** Controla el puntaje final para asegurar que no supere los 50 puntos establecidos como máximo para el juego.
+
+### ⚙️ `estadoJuego.js`:
+Servicio encargado de almacenar los datos generales de la partida en memoria.
+
+Se utiliza para conservar el nombre del jugador y los puntajes obtenidos durante los juegos.
+
+- **guardarNombreJugador(nombre):** Almacena el nombre del jugador.
+- **guardarPuntajeJuego1(puntaje):** Registra el puntaje obtenido en el primer juego.
+- **guardarPuntajeJuego2(puntaje):** Registra el puntaje obtenido en el segundo juego.
+- **obtenerResumenPartida():** Devuelve una copia de los datos de la partida para que la pantalla de resultados pueda utilizarlos.
+- **reiniciarPartida():** Restablece los datos de la partida para comenzar nuevamente.
+
+---
+
+## 📁 Gestión de Archivos
+
+### Archivos Creados:
+- `src/css/EstiloPantalla03.css`
+- `src/css/EstiloPantalla04.css`
+- `src/pages/Pantalla03.jsx`
+- `src/pages/Pantalla04.jsx`
+- `src/services/calculoPantalla03.js`
+
+### Archivos Modificados:
+- `src/services/estadoJuego.js`
+
+### Archivos Eliminados:
+- N/A
+
+
+- **Forma de uso:**
+  - [ ] **Autogeneración IA:** Código completo hecho por la IA para copiar y pegar.
+  - [x] **Alto (Copiloto):** Trabajo en equipo constante con la IA.
+  - [ ] **Medio (Guía):** Consulta para resolver dudas y corregir errores.
+  - [ ] **Bajo (Consulta puntual):** Ayuda rápida para resolver dudas menores.
+</file>
+
+</files>

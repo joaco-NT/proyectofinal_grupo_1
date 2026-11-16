@@ -1,104 +1,150 @@
 
-// 1. Librerías por defecto
+// ==========================================
+// PLANTILLA: JUEGOS (Juego 1 y Juego 2)
+// Arquitectura: Abuelo ➔ Macros ➔ Micros (Cero textos, cero estilos en línea)
+// ==========================================
 import React from "react";
-
-// 2. Componentes visuales propios
 import Boton from "./Boton";
 
-const EstructuraJuego = ({
-  claseBaseEstilo,
-  juegoTerminado,
-  juegoActivo,
-  juegoTerminadoDatos
-}) => {
-
-  // --- FUNCIONES INTERNAS ---
-
-  const renderizarEncabezado = (textoTitulo) => (
-    <header className={`${claseBaseEstilo}__caja-general`}>
-      <h1 className={`${claseBaseEstilo}__titulo`}>{textoTitulo}</h1>
-    </header>
+// ------------------------------------------
+// 1. EL ABUELO (Contenedor Raíz)
+// ------------------------------------------
+const ContenidoPrincipal = ({ fuenteDatos = {}, esIframe = false }) => {
+  return (
+    <MacroEstructura datosCompartidos={fuenteDatos} esIframe={esIframe} />
   );
-
-  const renderizarIndicadorVisual = () => {
-    let emojiUnico = "";
-    let textoAnimal = "";
-
-    if (juegoActivo.estaCargando) {
-      emojiUnico = "⏳";
-      textoAnimal = "Cargando juego...";
-    } else {
-      const partes = (juegoActivo.emojiIndicadorTexto || "").split(" ");
-      emojiUnico = partes[0] || "";
-      textoAnimal = partes.slice(1).join(" ");
-    }
-
-    return (
-      <section className={`${claseBaseEstilo}__caja-general`}>
-        <div className={`${claseBaseEstilo}__contenedor-indicador`}>
-          <span className={`${claseBaseEstilo}__emoji-grande`}>
-            {emojiUnico}
-          </span>
-          {textoAnimal && (
-            <span className={`${claseBaseEstilo}__texto-animal`}>
-              {textoAnimal}
-            </span>
-          )}
-        </div>
-      </section>
-    );
-  };
-
-  const renderizarAreaJuegoActivo = () => {
-    const retro = juegoActivo.retroalimentacion || { mensaje: "", claseCSS: "" };
-
-    return (
-      <main className={claseBaseEstilo}>
-        {renderizarEncabezado(juegoActivo.titulo)}
-        {renderizarIndicadorVisual()}
-
-        <section className={`${claseBaseEstilo}__caja-general`}>
-          <p className={`${claseBaseEstilo}__pregunta`}>{juegoActivo.preguntaTexto}</p>
-
-          <div className={`${claseBaseEstilo}__grupo-botones`}>
-            {juegoActivo.opciones?.map((opcionTexto, indice) => (
-              <Boton 
-                key={indice} 
-                texto={opcionTexto} 
-                disabled={Boolean(retro.mensaje)} 
-                alHacerClick={() => juegoActivo.manejarRespuesta(opcionTexto)} 
-                claseCSS={`${claseBaseEstilo}__boton-opcion`}
-              />
-            ))}
-          </div>
-
-          {retro.mensaje && (
-            <p className={`mensaje ${retro.claseCSS}`}>
-              {retro.mensaje}
-            </p>
-          )}
-        </section>
-      </main>
-    );
-  };
-
-  const renderizarAreaJuegoTerminado = () => (
-    <main className={claseBaseEstilo}>
-      {renderizarEncabezado("🎉 ¡Juego terminado!")}
-
-      <section className={`${claseBaseEstilo}__caja-general`}>
-        <p className={`${claseBaseEstilo}__pregunta`}>¿Listo para el siguiente reto?</p>
-        <Boton 
-          texto={juegoTerminadoDatos.textoBotonSiguiente} 
-          alHacerClick={juegoTerminadoDatos.alHacerClickSiguiente} 
-          claseCSS={`${claseBaseEstilo}__boton-siguiente`}
-        />
-      </section>
-    </main>
-  );
-
-  // --- EVALUACIÓN PRINCIPAL ---
-  return juegoTerminado ? renderizarAreaJuegoTerminado() : renderizarAreaJuegoActivo();
 };
 
-export default EstructuraJuego;
+// ------------------------------------------
+// 2. LOS MACROS (Organizadores de Layout)
+// ------------------------------------------
+const MacroEstructura = ({ datosCompartidos }) => {
+  const base = datosCompartidos?.dinamicos?.memoria?.claseBaseEstilo || "juego1";
+  const juegoTerminado = datosCompartidos?.dinamicos?.efecto?.juegoTerminado || false;
+
+  if (juegoTerminado) {
+    return (
+      <main className={base}>
+        <MacroHeaderTerminado datos={datosCompartidos} base={base} />
+        <MacroSectionTerminado datos={datosCompartidos} base={base} />
+      </main>
+    );
+  }
+
+  return (
+    <main className={base}>
+      <MacroHeaderActivo datos={datosCompartidos} base={base} />
+      <MacroIndicador datos={datosCompartidos} base={base} />
+      <MacroOpciones datos={datosCompartidos} base={base} />
+    </main>
+  );
+};
+
+const MacroHeaderActivo = ({ datos, base }) => (
+  <header className={`${base}__caja-general`}>
+    <MicroTituloActivo paquete={datos} base={base} />
+  </header>
+);
+
+const MacroIndicador = ({ datos, base }) => (
+  <section className={`${base}__caja-general`}>
+    <MicroIndicador paquete={datos} base={base} />
+  </section>
+);
+
+const MacroOpciones = ({ datos, base }) => (
+  <section className={`${base}__caja-general`}>
+    <MicroPregunta paquete={datos} base={base} />
+    <MicroBotonesOpcion paquete={datos} base={base} />
+    <MicroRetroalimentacion paquete={datos} />
+  </section>
+);
+
+const MacroHeaderTerminado = ({ datos, base }) => (
+  <header className={`${base}__caja-general`}>
+    <MicroTituloTerminado paquete={datos} base={base} />
+  </header>
+);
+
+const MacroSectionTerminado = ({ datos, base }) => (
+  <section className={`${base}__caja-general`}>
+    <MicroAccionTerminado paquete={datos} base={base} />
+  </section>
+);
+
+// ------------------------------------------
+// 3. LOS MICROS (Átomos / Componentes Visuales Finales)
+// ------------------------------------------
+const MicroTituloActivo = ({ paquete, base }) => {
+  const { titulo } = paquete?.Bloque1 || {};
+  return <h1 className={`${base}__titulo`}>{titulo}</h1>;
+};
+
+const MicroIndicador = ({ paquete, base }) => {
+  const emojiUnico = paquete?.dinamicos?.memoria?.emojiUnico;
+  const textoAnimal = paquete?.dinamicos?.memoria?.textoAnimal;
+
+  return (
+    <div className={`${base}__contenedor-indicador`}>
+      <span className={`${base}__emoji-grande`}>{emojiUnico}</span>
+      <span className={`${base}__texto-animal`}>{textoAnimal}</span>
+    </div>
+  );
+};
+
+const MicroPregunta = ({ paquete, base }) => {
+  const { pregunta } = paquete?.Bloque1 || {};
+  return <p className={`${base}__pregunta`}>{pregunta}</p>;
+};
+
+const MicroBotonesOpcion = ({ paquete, base }) => {
+  const opciones = paquete?.dinamicos?.memoria?.opciones || [];
+  const alElegirOpcion = paquete?.dinamicos?.accion?.alElegirOpcion;
+  const mensajeRetro = paquete?.dinamicos?.efecto?.retroalimentacion?.mensaje || "";
+  const estaBloqueado = Boolean(mensajeRetro);
+
+  return (
+    <div className={`${base}__grupo-botones`}>
+      {opciones.map((opcionTexto, indice) => (
+        <Boton
+          key={indice}
+          contenido={opcionTexto}
+          bloqueado={estaBloqueado}
+          accion={() => alElegirOpcion && alElegirOpcion(opcionTexto)}
+          estilo={`${base}__boton-opcion`}
+        />
+      ))}
+    </div>
+  );
+};
+
+const MicroRetroalimentacion = ({ paquete }) => {
+  const retro = paquete?.dinamicos?.efecto?.retroalimentacion || {};
+  if (!retro.mensaje) return null;
+
+  return <p className={`mensaje ${retro.claseCSS || ""}`}>{retro.mensaje}</p>;
+};
+
+const MicroTituloTerminado = ({ paquete, base }) => {
+  const { tituloTerminado } = paquete?.Bloque2 || {};
+  return <h1 className={`${base}__titulo`}>{tituloTerminado}</h1>;
+};
+
+const MicroAccionTerminado = ({ paquete, base }) => {
+  const { preguntaTerminado, textoBotonSiguiente } = paquete?.Bloque2 || {};
+  const alHacerClickSiguiente = paquete?.dinamicos?.accion?.alHacerClickSiguiente;
+
+  return (
+    <>
+      <p className={`${base}__pregunta`}>{preguntaTerminado}</p>
+      <Boton
+        contenido={textoBotonSiguiente}
+        bloqueado={false}
+        accion={alHacerClickSiguiente}
+        estilo={`${base}__boton-siguiente`}
+      />
+    </>
+  );
+};
+
+export default ContenidoPrincipal;

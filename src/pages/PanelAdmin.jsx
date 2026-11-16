@@ -1,34 +1,27 @@
 
 // ==========================================
-// CAPA DE PRESENTACIÓN / PÁGINA: Panel de Administración
+// PÁGINA: PanelAdmin (Cascarón Delgado)
 // ==========================================
 import React from "react";
-import EstructuraAdmin from "../components/EstructuraAdmin";
+import ContenidoPrincipal from "../components/EstructuraAdmin";
 import { usePanelAdmin } from "../hooks/usePanelAdmin";
+import { useEntorno } from "../hooks/useEntorno";
+import miJsonAdmin from "../data/textosAdmin.json";
 import "../css/EstiloAdmin.css";
 
 const PanelAdmin = () => {
-  const {
-    mostrarTabla,
-    pantallaActiva,
-    listaAlumnos,
-    iframeRef,
-    infoPantalla,
-    irAlMenuDocente,
-    seleccionarPantalla,
-    manejarCierreSesion
-  } = usePanelAdmin();
+  const { esIframe } = useEntorno("body-admin");
+  const dinamicos = usePanelAdmin();
+
+  const paqueteMaestro = {
+    ...miJsonAdmin,
+    dinamicos
+  };
 
   return (
-    <EstructuraAdmin
-      mostrarTabla={mostrarTabla}
-      pantallaActiva={pantallaActiva}
-      listaAlumnos={listaAlumnos}
-      iframeRef={iframeRef}
-      infoPantalla={infoPantalla}
-      alIrAlMenuDocente={irAlMenuDocente}
-      alSeleccionarPantalla={seleccionarPantalla}
-      alCerrarSesion={manejarCierreSesion}
+    <ContenidoPrincipal 
+      fuenteDatos={paqueteMaestro} 
+      esIframe={esIframe} 
     />
   );
 };

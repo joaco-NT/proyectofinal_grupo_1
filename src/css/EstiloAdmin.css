@@ -16,7 +16,6 @@
   border: 4px solid #90caf9;
 }
 
-/* Barra superior */
 .admin-header {
   display: flex;
   justify-content: space-between;
@@ -37,6 +36,7 @@
   font-weight: bold;
   font-size: 16px;
   letter-spacing: 1px;
+  cursor: pointer;
 }
 
 .admin-tabs {
@@ -62,7 +62,6 @@
   border-bottom-color: #1976d2;
 }
 
-/* Sección de Lista de Alumnos */
 .admin-seccion-lista {
   display: flex;
   flex-direction: column;
@@ -76,7 +75,6 @@
   font-weight: bold;
 }
 
-/* Tabla de puntajes */
 .admin-tabla-wrapper {
   overflow-x: auto;
   border-radius: 15px;
@@ -120,8 +118,58 @@
   background-color: #f5f9ff;
 }
 
-/* Botón inferior */
+.admin-tabla-vacia {
+  text-align: center;
+  color: #666;
+  padding: 20px;
+}
+
 .admin-footer {
   display: flex;
   justify-content: flex-end;
+}
+
+.admin-boton-cerrar {
+  background-color: #d32f2f;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.admin-boton-cerrar:hover {
+  background-color: #b71c1c;
+}
+
+/* Clases para la vista previa del Iframe (movidas desde los estilos en línea) */
+.admin-iframe-container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.admin-iframe-wrapper-box {
+  width: 100%;
+  height: 312px;
+  border: 2px solid #90caf9;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f8fbff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  position: relative;
+}
+
+.admin-iframe-preview {
+  width: 1050px;
+  height: 650px;
+  transform: translateX(-50%) scale(0.48);
+  transform-origin: top center;
+  border: none;
+  position: absolute;
+  top: 0;
+  left: 50%;
 }
