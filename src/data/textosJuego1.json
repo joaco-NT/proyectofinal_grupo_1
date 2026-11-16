@@ -1,0 +1,12 @@
+
+{
+  "Bloque1": {
+    "titulo": "Juego 1: ¡Hora de Comer!",
+    "pregunta": "Elige la comida correcta:"
+  },
+  "Bloque2": {
+    "tituloTerminado": "🎉 ¡Juego terminado!",
+    "preguntaTerminado": "¿Listo para el siguiente reto?",
+    "textoBotonSiguiente": "Siguiente 🚀"
+  }
+}

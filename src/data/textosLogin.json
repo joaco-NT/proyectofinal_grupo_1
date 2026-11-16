@@ -1,0 +1,14 @@
+
+{
+  "Bloque1": {
+    "titulo": "🔐 Iniciar Sesión",
+    "subtitulo": "Plataforma Educativa - Acceso de Usuarios"
+  },
+  "Bloque2": {
+    "etiquetaUsuario": "Correo o usuario",
+    "etiquetaPassword": "Contraseña"
+  },
+  "Bloque3": {
+    "textoBoton": "Ingresar"
+  }
+}

@@ -1,0 +1,17 @@
+
+[
+  {
+    "id": 1,
+    "email": "admin@granja.com",
+    "password": "123",
+    "rol": "admin",
+    "nombre": "Administrador"
+  },
+  {
+    "id": 2,
+    "email": "JuanPerez@alumno.com",
+    "password": "123",
+    "rol": "alumno",
+    "nombre": "Juan Perez"
+  }
+]

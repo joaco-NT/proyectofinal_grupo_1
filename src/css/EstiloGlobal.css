@@ -1,0 +1,50 @@
+
+
+:root {
+  --fuente-principal: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  
+  --color-login-primario: #2e7d32;
+  --color-login-fondo: #f1f8e9;
+  --color-login-borde: #a5d6a7;
+
+  --color-juego1-primario: #d84315;
+  --color-juego1-fondo: #fffbf0;
+  --color-juego1-borde: #ffe082;
+
+  --color-juego2-primario: #00838f;
+  --color-juego2-fondo: #f0f9fa;
+  --color-juego2-borde: #80deea;
+
+
+  --color-resultados-primario: #6a1b9a;
+  --color-resultados-fondo: #f3e5f5;
+  --color-resultados-borde: #ce93d8;
+
+  --sombra-general: 0 12px 30px rgba(0, 0, 0, 0.1);
+  --radio-caja: 30px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--fuente-principal);
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.5s ease, background-image 0.5s ease;
+}
+
+/* Transiciones genéricas reutilizables */
+.fade-in {
+  animation: fadeIn 0.4s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

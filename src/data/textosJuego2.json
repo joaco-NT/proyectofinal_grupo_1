@@ -1,0 +1,12 @@
+
+{
+  "Bloque1": {
+    "titulo": "Juego 2: El Intruso de la Granja",
+    "pregunta": "Haz clic en el elemento que NO corresponde:"
+  },
+  "Bloque2": {
+    "tituloTerminado": "🎉 ¡Juego terminado!",
+    "preguntaTerminado": "¿Listo para el siguiente reto?",
+    "textoBotonSiguiente": "Ver Resultados 🏆"
+  }
+}

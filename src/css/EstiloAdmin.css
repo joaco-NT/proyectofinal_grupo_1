@@ -1,0 +1,173 @@
+
+
+.admin-contenedor {
+  width: 850px;
+  max-width: 95%;
+  min-height: 500px;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 30px;
+  box-shadow: var(--sombra-general);
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  border: 4px solid #90caf9;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #e3f2fd;
+  padding: 15px 25px;
+  border-radius: 20px;
+  border: 2px dashed #90caf9;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.admin-badge {
+  background-color: #1976d2;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 16px;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.admin-tabs {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.admin-tab {
+  background: none;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  color: #555;
+  cursor: pointer;
+  padding-bottom: 4px;
+  border-bottom: 3px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.admin-tab:hover, .admin-tab--activo {
+  color: #1976d2;
+  border-bottom-color: #1976d2;
+}
+
+.admin-seccion-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.admin-titulo-lista {
+  text-align: center;
+  font-size: 22px;
+  color: #0d47a1;
+  font-weight: bold;
+}
+
+.admin-tabla-wrapper {
+  overflow-x: auto;
+  border-radius: 15px;
+  border: 2px solid #bbdefb;
+}
+
+.admin-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  background-color: #fff;
+}
+
+.admin-tabla th {
+  background-color: #e3f2fd;
+  color: #0d47a1;
+  padding: 14px 18px;
+  font-size: 16px;
+  border-bottom: 2px solid #bbdefb;
+  text-align: center;
+}
+
+.admin-tabla th:first-child {
+  text-align: left;
+}
+
+.admin-tabla td {
+  padding: 12px 18px;
+  color: #333;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 15px;
+  text-align: center;
+}
+
+.admin-tabla td:first-child {
+  text-align: left;
+  font-weight: 600;
+}
+
+.admin-tabla tr:hover {
+  background-color: #f5f9ff;
+}
+
+.admin-tabla-vacia {
+  text-align: center;
+  color: #666;
+  padding: 20px;
+}
+
+.admin-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.admin-boton-cerrar {
+  background-color: #d32f2f;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.admin-boton-cerrar:hover {
+  background-color: #b71c1c;
+}
+
+/* Clases para la vista previa del Iframe (movidas desde los estilos en línea) */
+.admin-iframe-container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.admin-iframe-wrapper-box {
+  width: 100%;
+  height: 312px;
+  border: 2px solid #90caf9;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f8fbff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  position: relative;
+}
+
+.admin-iframe-preview {
+  width: 1050px;
+  height: 650px;
+  transform: translateX(-50%) scale(0.48);
+  transform-origin: top center;
+  border: none;
+  position: absolute;
+  top: 0;
+  left: 50%;
+}
