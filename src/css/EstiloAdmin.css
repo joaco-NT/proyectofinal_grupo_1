@@ -143,7 +143,6 @@
   background-color: #b71c1c;
 }
 
-/* Clases para la vista previa del Iframe (movidas desde los estilos en línea) */
 .admin-iframe-container {
   display: flex;
   flex-direction: column;

@@ -1,16 +1,16 @@
-// ==========================================
-// LAYOUT RAÍZ / CONTENEDOR GENERAL DE RUTAS
-// ==========================================
+
 import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import "./css/EstiloGlobal.css"; // Estilos base y transiciones transversales
+import "./css/EstiloGlobal.css";
 import MusicaFondo from "./components/MusicaFondo";
 
-export default function App() {
+const RUTAS_VALIDAS = ["/", "/juego1", "/juego2", "/resultados", "/admin"];
+
+const App = () => {
   const ubicacion = useLocation();
+  const esRutaError = !RUTAS_VALIDAS.includes(ubicacion.pathname);
 
   useEffect(() => {
-    // Si la aplicación está corriendo dentro de un iframe, notifica al Panel Admin el cambio de ruta en tiempo real
     if (window.self !== window.top) {
       window.parent.postMessage(
         { tipo: "CAMBIO_RUTA_IFRAME", pathname: ubicacion.pathname },
@@ -21,12 +21,13 @@ export default function App() {
 
   return (
     <div className="app-contenedor-principal">
-      {/* Música de fondo */}
-      <MusicaFondo />
+      {!esRutaError && <MusicaFondo />}
 
       <div key={ubicacion.pathname} className="transicion-pagina">
         <Outlet />
       </div>
     </div>
   );
-}
+};
+
+export default App;

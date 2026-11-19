@@ -6,6 +6,7 @@ import Juego1 from "../pages/Juego1.jsx";
 import Juego2 from "../pages/Juego2.jsx";
 import Resultados from "../pages/Resultados.jsx";
 import PanelAdmin from "../pages/PanelAdmin.jsx";
+import PaginaError from "../pages/PaginaError.jsx";
 
 export const PANTALLAS_ALUMNO = [
   { numero: 1, titulo: "Acceso", ruta: "/" },
@@ -18,12 +19,14 @@ export const rutas = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <PaginaError />,
     children: [
       { index: true, element: <InicioSesion /> },
       { path: "/juego1", element: <Juego1 /> },
       { path: "/juego2", element: <Juego2 /> },
       { path: "/resultados", element: <Resultados /> },
       { path: "/admin", element: <PanelAdmin /> },
+      { path: "*", element: <PaginaError /> },
     ],
   },
 ]);
