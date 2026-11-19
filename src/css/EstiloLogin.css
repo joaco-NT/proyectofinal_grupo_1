@@ -73,7 +73,6 @@
   background-color: #388e3c;
 }
 
-/* Modificador para la vista previa del iframe en el panel docente */
 .login--iframe {
   position: relative;
   min-height: auto;
