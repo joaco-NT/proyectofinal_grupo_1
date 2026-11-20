@@ -1,5 +1,4 @@
 
-
 import axios from "axios";
 import { 
   validarAcceso, 
@@ -34,7 +33,6 @@ export const obtenerUsuariosOficiales = async () => {
         j2 = 0;
       }
 
-      // Usamos el operador de propagación (...) aquí
       return {
         ...usuario,
         juego1: j1,
@@ -105,7 +103,6 @@ export const guardarPuntajeJuego = async (numeroJuego, puntosNuevos) => {
         nuevoJuego2 = puntosFinales;
       }
 
-      // Usamos el operador de propagación (...) para actualizar el objeto
       return {
         ...usuario,
         juego1: nuevoJuego1,
@@ -152,13 +149,12 @@ export const obtenerResumenPartida = () => {
 
 export const cargarRondasJuego = async (rutaJson) => {
   try {
-    const respuesta = await fetch(rutaJson);
-    const rondasOriginales = await respuesta.json();
+    const respuesta = await axios.get(rutaJson);
+    const rondasOriginales = respuesta.data;
 
     return rondasOriginales.map((ronda) => {
       const opcionesMezcladas = mezclarOpciones(ronda.opciones);
       
-      // Usamos el operador de propagación (...) para combinar las opciones mezcladas
       return {
         ...ronda,
         opciones: opcionesMezcladas

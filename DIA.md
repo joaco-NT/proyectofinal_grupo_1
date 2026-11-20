@@ -94,6 +94,26 @@ Define las rondas del segundo minijuego desafiando al usuario a reconocer elemen
 
 Se conecta directamente con el servicio calculoPantalla03.js mediante la función encargada de consumir y barajar las rondas.
 
+
+
+## Página de Error (404)
+
+### Qué es y cómo se activa la página de error
+- La página de error (`PaginaError.jsx`) actúa como pantalla de respaldo cuando el usuario ingresa una URL que no coincide con ninguna ruta válida de la aplicación o cuando ocurre un error de ruta
+- En `src/routes/Rutas.jsx`, se registra con el comodín `path: "*"` dentro de `children` de `App` (además de `errorElement: <PaginaError />` en la raíz) para capturar cualquier ruta inexistente.
+
+### Archivos creados para la página de error
+- `src/pages/PaginaError.jsx`: Página que arma el paquete de datos combinando `textosError.json` y `usePaginaError`, y aplica la clase `"body-error"` con `useEntorno`.
+- `src/components/EstructuraError.jsx`: Componente estructural en funciones flecha que organiza el encabezado, cuerpo y pie de la pantalla 404 con el botón de regreso.
+- `src/hooks/usePaginaError.js`: Gestiona la navegación de vuelta a `"/"`.
+- `src/data/textosError.json`: Contenido en JSON (`Bloque1` y `Bloque2`) con el código `404`, el emoji de la ovejita, los textos del pastor y el botón para volver.
+- `src/css/EstiloError.css`: Estilos con colores planos, tipografía expresiva y animación suave para la pantalla 404.
+
+### Decisiones técnicas
+- **Sin lógica de `iframe` en la pantalla de error:** `PaginaError.jsx` llama a `useEntorno("body-error")` y no propaga `esIframe` a `EstructuraError.jsx`, renderizando directamente `<main className="error-pantalla">` sin modificadores ni contenedores de `iframe`.
+- **Bandera `esRutaError` en `App.jsx`:** Se define `RUTAS_VALIDAS = ["/", "/juego1", "/juego2", "/resultados", "/admin"]` y `const esRutaError = !RUTAS_VALIDAS.includes(ubicacion.pathname)` para ocultar `<MusicaFondo />` (`{!esRutaError && <MusicaFondo />}`) cuando la ruta actual no es válida, manteniendo la pantalla de error limpia.
+
+
 ### Archivos Creados:
 - `src/css/EstiloPantalla03.css`
 - `src/css/EstiloPantalla04.css`
@@ -103,6 +123,11 @@ Se conecta directamente con el servicio calculoPantalla03.js mediante la funció
 - `src/componets/PlantillaJuegoBase.js`
 - `src/hooks/useFondoPantalla.js`
 - `src/hooks/useJuego.js`
+- `src/pages/PaginaError.jsx`
+- `src/components/EstructuraError.jsx`
+- `src/hooks/usePaginaError.js`
+- `src/data/textosError.json`
+- `src/css/EstiloError.css`
 
 ### Archivos Modificados:
 - `src/services/calculoPantalla01.js`

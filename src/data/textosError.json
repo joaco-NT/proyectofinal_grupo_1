@@ -1,0 +1,12 @@
+
+{
+  "Bloque1": {
+    "codigo": "404",
+    "emoji": "🐑",
+    "titulo": "Bee... me alejé un poco del rebaño",
+    "mensaje": "Esta ruta no lleva a ningún lado. Menos mal que el pastor me chifla y me ayuda a volver."
+  },
+  "Bloque2": {
+    "textoBotonVolver": "Ir con el pastor"
+  }
+}

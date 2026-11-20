@@ -10,7 +10,6 @@ const ContenidoPrincipal = ({ fuenteDatos = {}, esIframe = false }) => {
   );
 };
 
-
 const Area_Estructura = ({ datosCompartidos, esIframe }) => {
   return (
     <main className={`login ${esIframe ? "login--iframe" : ""}`}>
@@ -44,11 +43,6 @@ const Area_Section = ({ datos }) => {
     </>
   );
 };
-
-// ------------------------------------------
-// 3. LAS PIEZAS (Átomos / Componentes Finales Visuales)
-// Cada una utiliza exclusivamente sus clases CSS correspondientes
-// ------------------------------------------
 
 const Pieza_Titulo = ({ paquete }) => {
   const { titulo, subtitulo } = paquete?.Bloque1 || {}; 
