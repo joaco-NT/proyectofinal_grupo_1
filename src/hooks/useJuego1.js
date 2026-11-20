@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { cargarRondasJuego, guardarPuntajeJuego } from "../services/navegador";
 import { evaluarRespuesta } from "../services/calculos";
+import {reproducirSonidoCorrecto,reproducirSonidoIncorrecto} from "../services/sonido";
 
 export const useJuego1 = () => {
   const navigate = useNavigate();
@@ -36,6 +37,11 @@ export const useJuego1 = () => {
     if (retroalimentacion.mensaje !== "") return;
 
     const resultado = evaluarRespuesta(opcionTexto, rondaActual);
+    
+    if (resultado.esCorrecta) { reproducirSonidoCorrecto();
+    } else {
+    reproducirSonidoIncorrecto();
+    }
     const nuevoPuntaje = puntaje + resultado.puntosGanados;
     setPuntaje(nuevoPuntaje);
 
